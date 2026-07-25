@@ -56,7 +56,7 @@ function CurrentIssuePage() {
         backTo="/journal"
         backLabel="Journal Services"
         eyebrow="Current Issue"
-        title="Volume 3, Issue 1 — 2026."
+        title="Volume 1, Issue 1 — 2026."
         description="Five peer-reviewed articles on curriculum reform, sustainability literacy, digital pedagogy, and comparative education policy."
       />
 

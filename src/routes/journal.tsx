@@ -155,11 +155,8 @@ function JournalPage() {
           {/* Right Side - Text Content */}
           <div className="flex flex-col justify-center space-y-6">
             <div>
-              <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
-                Current Issue
-              </span>
               <h2 className="mt-4 font-display text-3xl font-bold text-primary sm:text-4xl">
-                Everything an Author Needs, in One Placec
+                Everything an Author Needs in One Place
               </h2>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
                 The Academia Humanities Review provides a rigorous, open-access forum for researchers across literature, linguistics, cultural studies, translation, and education — fostering dialogue between disciplines and across traditions.
@@ -200,8 +197,7 @@ function JournalPage() {
         <section className="container-page py-20">
           <SectionTitle
             eyebrow="Journal Resources"
-            title="Everything an Author Needs, in One Place."
-            description="Policies, guidelines, and current scholarship — organised for authors, reviewers, and readers of the journal."
+             title="Policies, guidelines, and current scholarship — organised for authors, reviewers, and readers of the journal"
           />
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {journalPages.map((j) => (
