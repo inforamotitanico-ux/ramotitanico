@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionTitle } from "@/components/ui/section-title";
+import journalCoverImage from "@/assets/Book-Cover.png";
 
 export const Route = createFileRoute("/journal")({
   head: () => ({
@@ -139,6 +140,36 @@ function JournalPage() {
         description="From first draft to indexed publication, our editorial specialists help scholars navigate the path to credible, discoverable, and properly attributed academic work."
       />
 
+      {/* Image + Journal Info Section */}
+      <section className="container-page py-20">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Left Side - Image */}
+          <div className="relative flex items-center justify-center rounded-2xl p-8">
+            <img 
+              src={journalCoverImage}
+              alt="Academia Humanities Review Journal Cover"
+              className="h-auto max-h-[500px] w-auto max-w-full object-contain"
+            />
+          </div>
+
+          {/* Right Side - Text Content */}
+          <div className="flex flex-col justify-center space-y-6">
+            <div>
+              <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+                Current Issue
+              </span>
+              <h2 className="mt-4 font-display text-3xl font-bold text-primary sm:text-4xl">
+                Everything an Author Needs, in One Placec
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                The Academia Humanities Review provides a rigorous, open-access forum for researchers across literature, linguistics, cultural studies, translation, and education — fostering dialogue between disciplines and across traditions.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* <section className="container-page py-20">
         <SectionTitle
           eyebrow="What We Offer"
@@ -188,7 +219,6 @@ function JournalPage() {
                 <p className="pl-15 text-xs leading-relaxed text-muted-foreground">
                   {j.desc}
                 </p>
-                {/* ✨ Arrow moved to bottom-right corner */}
                 <ArrowRight className="absolute bottom-4 right-4 h-4 w-4 shrink-0 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary" />
               </Link>
             ))}

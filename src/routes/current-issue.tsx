@@ -79,49 +79,12 @@ function CurrentIssuePage() {
                 Current Issue
               </span>
               <h2 className="mt-4 font-display text-3xl font-bold text-primary sm:text-4xl">
-                Humanities Beyond Borders
+                A Platform for Humanities Scholarship
               </h2>
-              <p className="mt-2 text-lg font-semibold text-muted-foreground">
-                Academia Humanities Review
+              {/* Paragraph added here */}
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                The Academia Humanities Review provides a rigorous, open-access forum for researchers across literature, linguistics, cultural studies, translation, and education — fostering dialogue between disciplines and across traditions.
               </p>
-            </div>
-
-            <div className="space-y-4 border-l-4 border-primary pl-6">
-              <p className="text-muted-foreground">
-                <span className="font-semibold text-primary">Published:</span> 2026
-              </p>
-              <p className="text-muted-foreground">
-                <span className="font-semibold text-primary">Publisher:</span> Ramottanico-Unipessoal LDA, Portugal
-              </p>
-              <p className="text-muted-foreground">
-                <span className="font-semibold text-primary">ISSN:</span> 2976-1234
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <span className="rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground">
-                Education
-              </span>
-              <span className="rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground">
-                Transport
-              </span>
-              <span className="rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground">
-                Agriculture
-              </span>
-              <span className="rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground">
-                Construction
-              </span>
-            </div>
-
-            <div className="pt-4">
-              <a 
-                href={journalCoverImage} 
-                download
-                className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition hover:bg-primary/90"
-              >
-                <FileText className="h-5 w-5" />
-                Download Cover
-              </a>
             </div>
           </div>
         </div>
