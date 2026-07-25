@@ -23,7 +23,7 @@ export const Route = createFileRoute("/submit-manuscript")({
 
 const requirements = [
   "Manuscript prepared per the Author Guidelines",
-  "Structured abstract (200–250 words) and 4–6 keywords",
+  "Structured abstract (150–250 words) and 5–6 keywords",
   "Author details on a separate title page (blind manuscript body)",
   "Signed declaration of originality and no conflicts of interest",
 ];
@@ -369,7 +369,7 @@ function SubmitManuscriptPage() {
                   <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Keywords <span className="text-red-500">*</span>
                   </label>
-                  <p className="mt-0.5 text-xs text-muted-foreground">Minimum of three, title case, comma separated</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">Minimum of five, title case, comma separated</p>
                   <div className="relative mt-2">
                     <Key className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <input
