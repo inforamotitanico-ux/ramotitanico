@@ -1,13 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Award,
   CalendarCheck,
-  FileCheck2,
   FileText,
   Globe,
   Mic2,
   Network,
   CalendarClock,
+  BookOpen,
   Send,
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
@@ -20,6 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import abstractBook from "@/assets/book/abstract-book.pdf";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
@@ -160,9 +161,18 @@ function EventsPage() {
                 </Dialog>
                 <a
                   href="#timeline"
-                  className="inline-flex items-center gap-2 rounded-md border border-primary-foreground/30 px-5 py-3 text-sm font-semibold hover:bg-primary-foreground/10"
+                  className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground hover:brightness-95"
                 >
                   View Timeline
+                </a>
+                <a
+                  href={abstractBook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground hover:brightness-95"
+                >
+                  <BookOpen className="h-4 w-4" />
+                  Abstract Book
                 </a>
               </div>
             </div>
@@ -188,11 +198,21 @@ function EventsPage() {
       {/* Call for papers */}
       <section id="call-for-papers" className="bg-surface py-20">
         <div className="container-page grid gap-12 lg:grid-cols-[1fr_1.2fr]">
-          <SectionTitle
-            eyebrow="Call for Papers"
-            title="Submit Your Contribution."
-            description="We welcome original research, case studies, policy analyses, and theoretical contributions across education, research methodology, innovation studies, and sustainable development."
-          />
+          <div>
+            <SectionTitle
+              eyebrow="Call for Papers"
+              title="Submit Your Contribution."
+              description="We welcome original research, case studies, policy analyses, and theoretical contributions across education, research methodology, innovation studies, and sustainable development."
+            />
+            <div className="mt-6">
+              <Link
+                        to="/submit-manuscript"
+                        className="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-sm transition-all hover:brightness-95"
+                      >
+                        Submit Your Contribution
+                      </Link>
+            </div>
+          </div>
           <div className="rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-card)]">
             <h3 className="font-display text-xl font-semibold text-primary">Suggested Themes</h3>
             <ul className="mt-4 grid gap-3 text-sm text-foreground/85 sm:grid-cols-2">

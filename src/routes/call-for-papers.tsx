@@ -27,10 +27,9 @@ const themes = [
 ];
 
 const timeline = [
-  { date: "Soon in 2026", title: "Submissions Open", icon: Send },
-  { date: "Soon in 2026", title: "Submission Deadline", icon: FileText },
-  { date: "Soon in 2026", title: "Review Decisions Returned", icon: FileCheck2 },
-  { date: "Soon in 2026", title: "Issue Published", icon: CalendarCheck },
+  { date: "15 July", title: "Submissions Open", icon: Send },
+  { date: "15 November", title: "Submissions Open", icon: FileText },
+  { date: "15 March", title: "Submissions Open", icon: FileCheck2 },
 ];
 
 function CallForPapersPage() {
@@ -67,7 +66,7 @@ function CallForPapersPage() {
       <div className="bg-surface">
         <section className="container-page py-20">
           <SectionTitle align="center" eyebrow="Key Dates of" title="Call for Papers" />
-          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-3xl mx-auto">
             {timeline.map((t) => (
               <div key={t.title} className="flex flex-col items-center text-center">
                 <span className="grid h-14 w-14 place-items-center rounded-xl bg-primary text-primary-foreground">
