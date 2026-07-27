@@ -61,8 +61,8 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-2.5">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                <a href="mailto:info@ramotitanico.pt" className="hover:text-accent">
-                  info@ramotitanico.pt
+                <a href="mailto:info@ramotitanico.eu" className="hover:text-accent">
+                  info@ramotitanico.eu
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
