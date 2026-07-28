@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Mail, CheckCircle2, UploadCloud, FileText, User, AtSign, Globe, BookOpen, Key, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionTitle } from "@/components/ui/section-title";
-// import emailjs from "@emailjs/browser"; // Commented out until template ID is available
+import emailjs from "@emailjs/browser"; // ✅ Uncommented
 
 export const Route = createFileRoute("/submit-manuscript")({
   head: () => ({
@@ -80,22 +80,52 @@ const schema = z.object({
 });
 
 const MAX_FILE_MB = 5;
+const MANUSCRIPT_FILE_FIELD = "manuscript";
+const MANUSCRIPT_ATTACHMENT_PARAM = "manuscript_file";
+
+function readFileAsDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = () => reject(reader.error ?? new Error("Failed to read file"));
+    reader.readAsDataURL(file);
+  });
+}
 
 function SubmitManuscriptPage() {
   const [submitting, setSubmitting] = useState(false);
   const [fileName, setFileName] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const onFileChange = (file: File | null) => {
+  const assignFile = (file: File | null) => {
     if (!file) {
       setFileName("");
+      setSelectedFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
       return;
     }
+
     if (file.size > MAX_FILE_MB * 1024 * 1024) {
       toast.error(`File is larger than ${MAX_FILE_MB}MB. Please email it directly to info@ramotitanico.com.`);
       return;
     }
+
     setFileName(file.name);
+    setSelectedFile(file);
+
+    if (fileInputRef.current) {
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      fileInputRef.current.files = dataTransfer.files;
+    }
+  };
+
+  const onFileChange = (file: File | null) => {
+    assignFile(file);
   };
 
   const handleDrag = (e: React.DragEvent) => {
@@ -129,59 +159,64 @@ function SubmitManuscriptPage() {
       return;
     }
 
+    // Build statements summary
     const statementsSummary = [...statements, ...acknowledgements]
-      .map((s) => `${s.label} ${parsed.data[s.name as keyof typeof parsed.data] === "yes" ? "Yes" : "No"}`)
+      .map((s) => `${s.label} ${parsed.data[s.name as keyof typeof parsed.data] === "yes" ? "✅ Yes" : "❌ No"}`)
       .join("\n");
 
-    // TEMPORARY: Log form data to console instead of sending via EmailJS
-    console.log("=== MANUSCRIPT SUBMISSION DATA ===");
-    console.log("Name:", parsed.data.name);
-    console.log("Email:", parsed.data.email);
-    console.log("Language:", parsed.data.language);
-    console.log("Research Network:", parsed.data.researchNetwork || "—");
-    console.log("Journal:", parsed.data.journal);
-    console.log("Title:", parsed.data.title);
-    console.log("Subtitle:", parsed.data.subtitle || "—");
-    console.log("Abstract:", parsed.data.abstract);
-    console.log("Keywords:", parsed.data.keywords);
-    console.log("File:", fileName || "No file attached");
-    console.log("Statements:\n", statementsSummary);
-    console.log("==================================");
+    // Get current time
+    const now = new Date();
+    const timeString = now.toLocaleString("en-US", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
 
-    // Commented out until EmailJS template ID is available
-    /*
+    const yesNo = (value: string) => (value === "yes" ? "✅ Yes" : "❌ No");
+    const fileToSend = selectedFile ?? fileInputRef.current?.files?.[0] ?? null;
+
+    const templateParams: Record<string, string> = {
+      name: parsed.data.name,
+      email: parsed.data.email,
+      language: parsed.data.language,
+      researchNetwork: parsed.data.researchNetwork || "Not provided",
+      journal: parsed.data.journal,
+      title: parsed.data.title,
+      subtitle: parsed.data.subtitle || "Not provided",
+      abstract: parsed.data.abstract,
+      keywords: parsed.data.keywords,
+      wordCount: yesNo(parsed.data.wordCount),
+      aimsScope: yesNo(parsed.data.aimsScope),
+      abstractClear: yesNo(parsed.data.abstractClear),
+      clearlyWritten: yesNo(parsed.data.clearlyWritten),
+      referencesListed: yesNo(parsed.data.referencesListed),
+      citationsClear: yesNo(parsed.data.citationsClear),
+      notElsewhere: yesNo(parsed.data.notElsewhere),
+      ethicsAck: yesNo(parsed.data.ethicsAck),
+      consentAck: yesNo(parsed.data.consentAck),
+      paymentAck: yesNo(parsed.data.paymentAck),
+      statements: statementsSummary,
+      time: timeString,
+      fileName: fileToSend?.name ?? "No file attached",
+    };
+
+    if (fileToSend) {
+      templateParams[MANUSCRIPT_ATTACHMENT_PARAM] = await readFileAsDataUrl(fileToSend);
+    }
+
     try {
       await emailjs.send(
-        "service_jp0tlbk",
-        "template_manuscript_submission", // Replace with your template ID
-        {
-          name: parsed.data.name,
-          email: parsed.data.email,
-          language: parsed.data.language,
-          researchNetwork: parsed.data.researchNetwork || "—",
-          journal: parsed.data.journal,
-          title: parsed.data.title,
-          subtitle: parsed.data.subtitle || "—",
-          abstract: parsed.data.abstract,
-          keywords: parsed.data.keywords,
-          statements: statementsSummary,
-          fileName: fileName || "No file attached — author will email manuscript separately",
-        },
-        "HhAU4iWFJNLELPwv3" // Your public key
+        "service_qpjk7gi",
+        "template_7q1za7k",
+        templateParams,
+        "vUG18KQybqZLer_86",
       );
       toast.success("Submission received. Our editorial office will be in touch.");
       form.reset();
-      setFileName("");
+      assignFile(null);
     } catch (error) {
-      console.error(error);
+      console.error("EmailJS Error:", error);
       toast.error("Failed to send submission. Please try again or email us directly.");
     }
-    */
-
-    // Temporary success message while EmailJS is disabled
-    toast.success("Submission data logged successfully. EmailJS integration will be enabled soon.");
-    form.reset();
-    setFileName("");
     setSubmitting(false);
   };
 
@@ -240,6 +275,7 @@ function SubmitManuscriptPage() {
 
           <form
             onSubmit={onSubmit}
+            encType="multipart/form-data"
             className="rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-card)]"
           >
             <div className="flex items-center gap-3 border-b border-border pb-6">
@@ -394,8 +430,11 @@ function SubmitManuscriptPage() {
                     onDrop={handleDrop}
                   >
                     <input
+                      ref={fileInputRef}
                       id="manuscript-file"
+                      name={MANUSCRIPT_FILE_FIELD}
                       type="file"
+                      accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                       className="absolute inset-0 cursor-pointer opacity-0"
                       onChange={(e) => onFileChange(e.target.files?.[0] ?? null)}
                     />
