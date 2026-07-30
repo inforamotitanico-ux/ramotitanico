@@ -93,8 +93,8 @@ setSubmitting(false);
               <Item
                 icon={Mail}
                 label="Email"
-                value="info@ramotitanico.pt"
-                href="mailto:info@ramotitanico.pt"
+                value="admin@ramotitanico.pt"
+                href="mailto:admin@ramotitanico.pt"
               />
               <Item icon={Phone} label="Phone" value="+351 928 310 629" href="tel:+351 928 310 629" />
               <Item icon={MessageCircle} label="WhatsApp" value="+351 928 310 629" href="https://wa.me/351928310629" />

@@ -197,4 +197,9 @@ body {
   top: 0 !important;
 }
 
+.manuscript-editor:empty::before {
+  content: attr(data-placeholder);
+  color: color-mix(in oklch, var(--muted-foreground) 80%, transparent);
+  pointer-events: none;
+}
 

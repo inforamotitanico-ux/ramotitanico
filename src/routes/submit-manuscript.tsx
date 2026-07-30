@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { Mail, CheckCircle2, UploadCloud, FileText, User, AtSign, Globe, BookOpen, Key, AlertCircle } from "lucide-react";
+import { Mail, CheckCircle2, FileText, User, AtSign, Globe, BookOpen, Key, AlertCircle, X } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionTitle } from "@/components/ui/section-title";
-import emailjs from "@emailjs/browser"; // ✅ Uncommented
+import emailjs from "@emailjs/browser";
 
 export const Route = createFileRoute("/submit-manuscript")({
   head: () => ({
@@ -43,26 +43,56 @@ const acknowledgements = [
     name: "ethicsAck",
     label: "Do you acknowledge the Publication Ethics and Publication Malpractice Statement?",
     linkText: "Publication Ethics and Publication Malpractice Statement.",
-    to: "/publication-ethics",
+    popupContent: {
+      title: "Publication Ethics and Publication Malpractice Statement",
+      content: [
+        "The journal is committed to maintaining the highest standards of publication ethics and preventing any malpractice.",
+        "All authors must ensure that their work is original and has not been published elsewhere.",
+        "Authors should not submit the same manuscript to more than one journal concurrently.",
+        "All research involving human subjects must have received appropriate ethical approval.",
+        "Any potential conflicts of interest must be disclosed at the time of submission.",
+        "The editorial board follows COPE guidelines for handling ethical issues.",
+      ]
+    }
   },
   {
     name: "consentAck",
     label: "Do you acknowledge the Informed Consent for Human and Animal Rights Statement?",
     linkText: "Informed Consent for Human and Animal Rights Statement.",
+    popupContent: {
+      title: "Informed Consent for Human and Animal Rights Statement",
+      content: [
+        "For research involving human participants, informed consent must be obtained from all subjects.",
+        "Authors must ensure that participants have given written consent for their data to be used.",
+        "All research involving human subjects must have been conducted in accordance with the Declaration of Helsinki.",
+        "For research involving animals, all procedures must comply with relevant guidelines and regulations.",
+        "Authors must confirm that all necessary approvals were obtained before conducting the research.",
+        "Any identifying information in the manuscript should be anonymized to protect participant privacy.",
+      ]
+    }
   },
   {
     name: "paymentAck",
     label: "Authors can submit a manuscript and be peer-reviewed at zero cost. Payment may be needed at the Rights Agreement stage.",
     linkText: "Rights Agreement Pathways.",
+    popupContent: {
+      title: "Rights Agreement Pathways",
+      content: [
+        "Submission and peer review are completely free of charge.",
+        "If your manuscript is accepted, you will be required to sign a Rights Agreement.",
+        "The Rights Agreement outlines the terms for publication and distribution.",
+        "Payment may be required at the Rights Agreement stage for publication costs.",
+        "Details of the payment structure will be provided upon acceptance.",
+        "Authors have the option to choose between different licensing agreements.",
+      ]
+    }
   },
 ] as const;
 
 const schema = z.object({
   name: z.string().trim().min(2, "Name required").max(120),
   email: z.string().trim().email("Valid email required").max(200),
-  language: z.string().trim().min(1, "Language required"),
   researchNetwork: z.string().trim().max(160).optional().or(z.literal("")),
-  journal: z.string().trim().min(2).max(160),
   title: z.string().trim().min(5, "Title required").max(300),
   subtitle: z.string().trim().max(300).optional().or(z.literal("")),
   abstract: z.string().trim().min(50, "Abstract should be approximately 150–250 words").max(3000),
@@ -79,72 +109,16 @@ const schema = z.object({
   paymentAck: z.literal("yes", { message: "You must acknowledge the submission terms to submit" }),
 });
 
-const MAX_FILE_MB = 5;
-const MANUSCRIPT_FILE_FIELD = "manuscript";
-const MANUSCRIPT_ATTACHMENT_PARAM = "manuscript_file";
-
-function readFileAsDataUrl(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = () => reject(reader.error ?? new Error("Failed to read file"));
-    reader.readAsDataURL(file);
-  });
-}
-
 function SubmitManuscriptPage() {
   const [submitting, setSubmitting] = useState(false);
-  const [fileName, setFileName] = useState("");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [dragActive, setDragActive] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showEmailPopup, setShowEmailPopup] = useState(false);
+  const [submissionData, setSubmissionData] = useState<any>(null);
+  const [showStatementPopup, setShowStatementPopup] = useState(false);
+  const [currentPopupContent, setCurrentPopupContent] = useState<any>(null);
 
-  const assignFile = (file: File | null) => {
-    if (!file) {
-      setFileName("");
-      setSelectedFile(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-      return;
-    }
-
-    if (file.size > MAX_FILE_MB * 1024 * 1024) {
-      toast.error(`File is larger than ${MAX_FILE_MB}MB. Please email it directly to info@ramotitanico.com.`);
-      return;
-    }
-
-    setFileName(file.name);
-    setSelectedFile(file);
-
-    if (fileInputRef.current) {
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file);
-      fileInputRef.current.files = dataTransfer.files;
-    }
-  };
-
-  const onFileChange = (file: File | null) => {
-    assignFile(file);
-  };
-
-  const handleDrag = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      onFileChange(e.dataTransfer.files[0]);
-    }
+  const handleOpenStatementPopup = (content: any) => {
+    setCurrentPopupContent(content);
+    setShowStatementPopup(true);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -153,6 +127,7 @@ function SubmitManuscriptPage() {
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
     const parsed = schema.safeParse(data);
+    
     if (!parsed.success) {
       toast.error(parsed.error.issues[0]?.message ?? "Please review your submission.");
       setSubmitting(false);
@@ -172,14 +147,11 @@ function SubmitManuscriptPage() {
     });
 
     const yesNo = (value: string) => (value === "yes" ? "✅ Yes" : "❌ No");
-    const fileToSend = selectedFile ?? fileInputRef.current?.files?.[0] ?? null;
 
     const templateParams: Record<string, string> = {
       name: parsed.data.name,
       email: parsed.data.email,
-      language: parsed.data.language,
       researchNetwork: parsed.data.researchNetwork || "Not provided",
-      journal: parsed.data.journal,
       title: parsed.data.title,
       subtitle: parsed.data.subtitle || "Not provided",
       abstract: parsed.data.abstract,
@@ -196,28 +168,61 @@ function SubmitManuscriptPage() {
       paymentAck: yesNo(parsed.data.paymentAck),
       statements: statementsSummary,
       time: timeString,
-      fileName: fileToSend?.name ?? "No file attached",
     };
 
-    if (fileToSend) {
-      templateParams[MANUSCRIPT_ATTACHMENT_PARAM] = await readFileAsDataUrl(fileToSend);
-    }
+    setSubmissionData(parsed.data);
+    setShowEmailPopup(true);
+    setSubmitting(false);
+  };
 
+  const handleSendEmail = async () => {
+    if (!submissionData) return;
+    
     try {
+      const yesNo = (value: string) => (value === "yes" ? "✅ Yes" : "❌ No");
+      
+      const templateParams = {
+        name: submissionData.name,
+        email: submissionData.email,
+        researchNetwork: submissionData.researchNetwork || "Not provided",
+        title: submissionData.title,
+        subtitle: submissionData.subtitle || "Not provided",
+        abstract: submissionData.abstract,
+        keywords: submissionData.keywords,
+        wordCount: yesNo(submissionData.wordCount),
+        aimsScope: yesNo(submissionData.aimsScope),
+        abstractClear: yesNo(submissionData.abstractClear),
+        clearlyWritten: yesNo(submissionData.clearlyWritten),
+        referencesListed: yesNo(submissionData.referencesListed),
+        citationsClear: yesNo(submissionData.citationsClear),
+        notElsewhere: yesNo(submissionData.notElsewhere),
+        ethicsAck: yesNo(submissionData.ethicsAck),
+        consentAck: yesNo(submissionData.consentAck),
+        paymentAck: yesNo(submissionData.paymentAck),
+        statements: [...statements, ...acknowledgements]
+          .map((s) => `${s.label} ${submissionData[s.name] === "yes" ? "✅ Yes" : "❌ No"}`)
+          .join("\n"),
+        time: new Date().toLocaleString("en-US", {
+          dateStyle: "medium",
+          timeStyle: "short",
+        }),
+      };
+
       await emailjs.send(
         "service_qpjk7gi",
         "template_7q1za7k",
         templateParams,
         "vUG18KQybqZLer_86",
       );
-      toast.success("Submission received. Our editorial office will be in touch.");
-      form.reset();
-      assignFile(null);
+      
+      toast.success("Submission details sent. Please email your manuscript file to admin@ramotitanico.com");
+      setShowEmailPopup(false);
+      const form = document.querySelector('form');
+      if (form) form.reset();
     } catch (error) {
       console.error("EmailJS Error:", error);
-      toast.error("Failed to send submission. Please try again or email us directly.");
+      toast.error("Failed to send email. Please try again.");
     }
-    setSubmitting(false);
   };
 
   return (
@@ -227,7 +232,7 @@ function SubmitManuscriptPage() {
         backLabel="Journal Services"
         eyebrow="Submit Manuscript"
         title="Ready to Submit? Here's How."
-        description="Complete the submission form below, or email your manuscript directly to our editorial office."
+        description="Complete the submission form below, then send your manuscript file to our editorial office."
       />
 
       <section className="container-page py-20">
@@ -258,30 +263,28 @@ function SubmitManuscriptPage() {
               <span className="grid h-12 w-12 place-items-center rounded-xl bg-primary text-primary-foreground">
                 <Mail className="h-6 w-6" />
               </span>
-              <h3 className="mt-4 font-display text-lg font-semibold text-primary">Prefer Email?</h3>
+              <h3 className="mt-4 font-display text-lg font-semibold text-primary">Submit Your File</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Email your manuscript and title page as separate attachments, with the subject line
-                "Manuscript Submission — [Your Name]".
+                After completing the form, you'll need to email your manuscript file directly to us.
               </p>
               <a
-                href="mailto:info@ramotitanico.com?subject=Manuscript%20Submission"
+                href="mailto:admin@ramotitanico.com?subject=Manuscript%20Submission"
                 className="mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
               >
                 <Mail className="h-4 w-4" />
-                info@ramotitanico.com
+                admin@ramotitanico.com
               </a>
             </div>
           </div>
 
           <form
             onSubmit={onSubmit}
-            encType="multipart/form-data"
             className="rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-card)]"
           >
             <div className="flex items-center gap-3 border-b border-border pb-6">
               <FileText className="h-6 w-6 text-primary" />
               <h3 className="font-display text-xl font-semibold text-primary">New Submission</h3>
-              <span className="ml-auto rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Step 1 of 3</span>
+              <span className="ml-auto rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Step 1 of 2</span>
             </div>
 
             {/* Step 1: Author Information */}
@@ -329,22 +332,6 @@ function SubmitManuscriptPage() {
               </div>
               <div className="mt-4 grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Language <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="language"
-                    defaultValue="English"
-                    className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  >
-                    <option>English</option>
-                    <option>Portuguese</option>
-                    <option>Spanish</option>
-                    <option>French</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
                   <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Research Network (optional)</label>
                   <input
                     name="researchNetwork"
@@ -353,18 +340,6 @@ function SubmitManuscriptPage() {
                     placeholder="e.g., Humanities Research Network"
                     className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
-                </div>
-                <div className="sm:col-span-2">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Journal <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative mt-2">
-                    <Globe className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                    <input
-                      name="journal"
-                      className="w-full rounded-lg border border-input bg-secondary/60 py-2.5 pl-10 pr-4 text-sm text-foreground/80"
-                    />
-                  </div>
                 </div>
                 <div className="sm:col-span-2">
                   <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -416,47 +391,6 @@ function SubmitManuscriptPage() {
                     />
                   </div>
                 </div>
-                <div className="sm:col-span-2">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    File Upload <span className="text-muted-foreground">{`(optional, max ${MAX_FILE_MB}MB)`}</span>
-                  </label>
-                  <div
-                    className={`mt-2 relative cursor-pointer rounded-lg border-2 border-dashed transition-all ${
-                      dragActive ? "border-primary bg-primary/5" : "border-input bg-secondary/40 hover:border-primary/70"
-                    }`}
-                    onDragEnter={handleDrag}
-                    onDragLeave={handleDrag}
-                    onDragOver={handleDrag}
-                    onDrop={handleDrop}
-                  >
-                    <input
-                      ref={fileInputRef}
-                      id="manuscript-file"
-                      name={MANUSCRIPT_FILE_FIELD}
-                      type="file"
-                      accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                      className="absolute inset-0 cursor-pointer opacity-0"
-                      onChange={(e) => onFileChange(e.target.files?.[0] ?? null)}
-                    />
-                    <div className="flex flex-col items-center justify-center gap-2 px-4 py-8 text-center">
-                      {fileName ? (
-                        <>
-                          <FileText className="h-8 w-8 text-emerald-500" />
-                          <span className="text-sm font-medium text-foreground">{fileName}</span>
-                          <span className="text-xs text-muted-foreground">Click or drag to replace</span>
-                        </>
-                      ) : (
-                        <>
-                          <UploadCloud className="h-8 w-8 text-muted-foreground" />
-                          <span className="text-sm text-muted-foreground">
-                            Drag & Drop your file or <span className="font-medium text-primary underline underline-offset-4">Browse</span>
-                          </span>
-                          <span className="text-xs text-muted-foreground">Accepted formats: PDF, DOC, DOCX</span>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -471,7 +405,14 @@ function SubmitManuscriptPage() {
                   <YesNoQuestion key={s.name} name={s.name} label={s.label} />
                 ))}
                 {acknowledgements.map((a) => (
-                  <YesNoQuestion key={a.name} name={a.name} label={a.label} linkText={a.linkText} />
+                  <YesNoQuestion 
+                    key={a.name} 
+                    name={a.name} 
+                    label={a.label} 
+                    linkText={a.linkText}
+                    popupContent={a.popupContent}
+                    onOpenPopup={handleOpenStatementPopup}
+                  />
                 ))}
               </div>
             </div>
@@ -491,46 +432,104 @@ function SubmitManuscriptPage() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
-                    Submitting…
+                    Processing…
                   </>
                 ) : (
-                  "Submit Manuscript"
+                  "Submit Details"
                 )}
               </button>
             </div>
           </form>
         </div>
       </section>
+
+      {/* Popup Modal for Statements */}
+      {showStatementPopup && currentPopupContent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="relative max-w-2xl w-full rounded-2xl bg-white p-8 shadow-2xl max-h-[80vh] overflow-y-auto">
+            <button
+              onClick={() => setShowStatementPopup(false)}
+              className="absolute right-4 top-4 rounded-full p-2 hover:bg-secondary transition-colors"
+            >
+              <X className="h-5 w-5 text-muted-foreground" />
+            </button>
+            <div className="text-left">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                <FileText className="h-8 w-8 text-primary" />
+              </div>
+              <h3 className="text-2xl font-semibold text-foreground mb-4">
+                {currentPopupContent.title}
+              </h3>
+              <div className="space-y-3">
+                {currentPopupContent.content.map((item: string, index: number) => (
+                  <div key={index} className="flex items-start gap-3">
+                    <span className="text-primary font-bold mt-0.5">•</span>
+                    <p className="text-sm text-foreground/85 leading-relaxed">{item}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={() => setShowStatementPopup(false)}
+                  className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Popup Modal for Email */}
+      {showEmailPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="relative max-w-md w-full rounded-2xl bg-white p-8 shadow-2xl">
+            <div className="text-center">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                <Mail className="h-8 w-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground">Email Your Manuscript</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Your submission details have been saved. Please send your manuscript file to:
+              </p>
+              <a
+                href="mailto:admin@ramotitanico.com?subject=Manuscript%20Submission%20-%20{{submissionData?.name}}"
+                className="mt-3 inline-block text-lg font-semibold text-primary underline underline-offset-4 hover:text-primary/80"
+              >
+                admin@ramotitanico.com
+              </a>
+              <div className="mt-4 rounded-lg bg-secondary/30 p-4 text-left text-sm">
+                <p className="font-medium">Include in your email:</p>
+                <ul className="mt-2 space-y-1 text-muted-foreground">
+                  <li>• Your manuscript file (.docx or .pdf)</li>
+                  <li>• Title page with author details (separate file)</li>
+                  <li>• Subject line: "Manuscript Submission - {submissionData?.name}"</li>
+                </ul>
+              </div>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                <button
+                  onClick={handleSendEmail}
+                  className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
+                >
+                  <Mail className="mr-2 h-4 w-4" />
+                  Send Notification
+                </button>
+                <button
+                  onClick={() => setShowEmailPopup(false)}
+                  className="inline-flex items-center justify-center rounded-lg border border-input bg-background px-6 py-2.5 text-sm font-medium text-foreground transition-all hover:bg-secondary"
+                >
+                  Close
+                </button>
+              </div>
+              <p className="mt-4 text-xs text-muted-foreground">
+                Click "Send Notification" to email your submission details, then email your file separately.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </>
-  );
-}
-
-function Field({ label, name, type = "text" }: { label: string; name: string; type?: string }) {
-  return (
-    <div>
-      <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</label>
-      <input
-        name={name}
-        type={type}
-        maxLength={200}
-        className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-      />
-    </div>
-  );
-}
-
-function TextArea({ label, name, rows = 3, hint }: { label: string; name: string; rows?: number; hint?: string }) {
-  return (
-    <div>
-      <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</label>
-      {hint && <p className="mt-0.5 text-xs text-muted-foreground">{hint}</p>}
-      <textarea
-        name={name}
-        rows={rows}
-        maxLength={3000}
-        className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-      />
-    </div>
   );
 }
 
@@ -538,12 +537,14 @@ function YesNoQuestion({
   name,
   label,
   linkText,
-  to,
+  popupContent,
+  onOpenPopup,
 }: {
   name: string;
   label: string;
   linkText?: string;
-  to?: string;
+  popupContent?: any;
+  onOpenPopup?: (content: any) => void;
 }) {
   return (
     <fieldset className="flex flex-col gap-3 rounded-lg bg-secondary/30 p-4 transition-colors hover:bg-secondary/50 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
@@ -554,10 +555,14 @@ function YesNoQuestion({
           <>
             {" "}
             Please read and acknowledge the{" "}
-            {to ? (
-              <Link to={to} className="font-medium text-primary underline underline-offset-4 hover:text-primary/80">
+            {popupContent ? (
+              <button
+                type="button"
+                onClick={() => onOpenPopup && onOpenPopup(popupContent)}
+                className="font-medium text-primary underline underline-offset-4 hover:text-primary/80 hover:underline-offset-6 transition-all cursor-pointer"
+              >
                 {linkText}
-              </Link>
+              </button>
             ) : (
               <span className="font-medium text-primary underline underline-offset-4">{linkText}</span>
             )}

@@ -104,7 +104,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@type": "Organization",
           name: "Ramotitanico",
           url: "/",
-          email: "info@ramotitanico.com",
+          email: "admin@ramotitanico.com",
           address: {
             "@type": "PostalAddress",
             addressLocality: "Braga",
