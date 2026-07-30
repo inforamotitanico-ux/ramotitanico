@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { Mail, CheckCircle2, FileText, User, AtSign, Globe, BookOpen, Key, AlertCircle, X } from "lucide-react";
+import { Mail, CheckCircle2, FileText, User, AtSign, Globe, BookOpen, Key, AlertCircle, X, Copy, Check } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { PageHero } from "@/components/ui/page-hero";
@@ -115,10 +115,22 @@ function SubmitManuscriptPage() {
   const [submissionData, setSubmissionData] = useState<any>(null);
   const [showStatementPopup, setShowStatementPopup] = useState(false);
   const [currentPopupContent, setCurrentPopupContent] = useState<any>(null);
+  const [copied, setCopied] = useState(false);
 
   const handleOpenStatementPopup = (content: any) => {
     setCurrentPopupContent(content);
     setShowStatementPopup(true);
+  };
+
+  const handleCopyEmail = () => {
+    const email = "admin@ramotitanico.com";
+    navigator.clipboard.writeText(email).then(() => {
+      setCopied(true);
+      toast.success("Email copied to clipboard!");
+      setTimeout(() => setCopied(false), 3000);
+    }).catch(() => {
+      toast.error("Failed to copy email");
+    });
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -493,12 +505,34 @@ function SubmitManuscriptPage() {
               <p className="mt-2 text-sm text-muted-foreground">
                 Your submission details have been saved. Please send your manuscript file to:
               </p>
-              <a
-                href="mailto:admin@ramotitanico.com?subject=Manuscript%20Submission%20-%20{{submissionData?.name}}"
-                className="mt-3 inline-block text-lg font-semibold text-primary underline underline-offset-4 hover:text-primary/80"
-              >
-                admin@ramotitanico.com
-              </a>
+              
+              {/* Email with Copy Button */}
+              <div className="mt-3 flex items-center justify-center gap-2">
+                <a
+                  href="mailto:admin@ramotitanico.com?subject=Manuscript%20Submission%20-%20{{submissionData?.name}}"
+                  className="text-lg font-semibold text-primary underline underline-offset-4 hover:text-primary/80"
+                >
+                  admin@ramotitanico.com
+                </a>
+                <button
+                  onClick={handleCopyEmail}
+                  className="inline-flex items-center gap-1 rounded-md bg-secondary/50 px-2 py-1 text-sm font-medium text-foreground transition-all hover:bg-secondary"
+                  title="Copy email to clipboard"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="h-4 w-4 text-emerald-500" />
+                      <span className="text-xs">Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-4 w-4" />
+                      <span className="text-xs">Copy</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
               <div className="mt-4 rounded-lg bg-secondary/30 p-4 text-left text-sm">
                 <p className="font-medium">Include in your email:</p>
                 <ul className="mt-2 space-y-1 text-muted-foreground">
