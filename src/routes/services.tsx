@@ -160,7 +160,9 @@ function ServicesPage() {
                   </span>
                   <div className="min-w-0">
                     <h3 className="font-display text-xl font-semibold text-primary">{s.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground text-justify">
+                      {s.desc}
+                    </p>
                   </div>
                 </div>
               </article>

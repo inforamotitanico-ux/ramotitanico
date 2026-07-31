@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Download, Folder, X } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
-import bannerImg from "@/assets/conference/banner.jpeg";
+// import bannerImg from "@/assets/conference/banner.jpeg"; // BANNER IMAGE: This code belongs to the banner image - imported for conference banner display
 import conferencePdf1 from "@/assets/conference/Humanities Conference presentation June 2026.pdf";
 import conferencePdf2 from "@/assets/conference/RISE-Europe_Presentation_June 2026.pdf";
 
@@ -39,13 +39,13 @@ const conferencePhotos = Object.entries(conferenceGlob)
 
 const onlineConferenceFolder = "Online Conference — 26–27 June 2026";
 
-// const conferencePdfs = [
-//   { label: "Humanities Conference Presentation", href: conferencePdf1 },
-//   { label: "RISE-Europe Presentation", href: conferencePdf2 },
-// ];
+const conferencePdfs = [
+  { label: "Humanities Conference Presentation", href: conferencePdf1 },
+  { label: "RISE-Europe Presentation", href: conferencePdf2 },
+];
 
 const items: Item[] = [
-  { category: onlineConferenceFolder, caption: "Conference banner", src: bannerImg },
+  // { category: onlineConferenceFolder, caption: "Conference banner", src: bannerImg }, // BANNER IMAGE: This code belongs to the banner image - commented out to exclude banner from gallery
   ...conferencePhotos.map((src, i) => ({
     category: onlineConferenceFolder,
     caption: `Online Conference, 26–27 June 2026 — photo ${i + 1}`,
@@ -122,7 +122,7 @@ function GalleryPage() {
               <h2 className="font-display text-2xl font-semibold text-primary">{openFolder}</h2>
             </div>
 
-            {/* {openFolder === onlineConferenceFolder && (
+            {openFolder === onlineConferenceFolder && (
               <div className="mt-6 flex flex-wrap gap-3">
                 {conferencePdfs.map((pdf) => (
                   <a
@@ -136,7 +136,7 @@ function GalleryPage() {
                   </a>
                 ))}
               </div>
-            )} */}
+            )}
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {photosInFolder.map((it, i) => (

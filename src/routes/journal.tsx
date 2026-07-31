@@ -158,7 +158,7 @@ function JournalPage() {
               <h2 className="mt-4 font-display text-3xl font-bold text-primary sm:text-4xl">
                 Everything an Author Needs in One Place
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground text-justify">
                 The Academia Humanities Review provides a rigorous, open-access forum for researchers across literature, linguistics, cultural studies, translation, and education — fostering dialogue between disciplines and across traditions.
               </p>
             </div>
@@ -212,7 +212,7 @@ function JournalPage() {
                   </span>
                   <span className="flex-1 font-display text-base font-semibold text-primary">{j.label}</span>
                 </div>
-                <p className="pl-15 text-xs leading-relaxed text-muted-foreground">
+                <p className="pl-15 text-xs leading-relaxed text-muted-foreground text-justify">
                   {j.desc}
                 </p>
                 <ArrowRight className="absolute bottom-4 right-4 h-4 w-4 shrink-0 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary" />
@@ -231,13 +231,13 @@ function JournalPage() {
             Eighty-Five Publications and Counting.
           </h2>
           <div className="mt-6 space-y-4 text-primary-foreground/80 leading-relaxed">
-            <p>
+            <p className="text-justify" >
               Ramotitanico has supported researchers across dozens of disciplines in bringing
               their work to reputable, indexed publication — reviewing manuscripts, coordinating
               peer review, and matching authors with the journals and proceedings best suited to
               their contribution.
             </p>
-            <p>
+            <p className="text-justify">
               We believe rigorous scholarship deserves a credible platform, and that the path from
               draft to dissemination should be guided by editorial expertise rather than left to
               chance.

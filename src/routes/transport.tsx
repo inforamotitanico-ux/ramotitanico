@@ -102,7 +102,9 @@ function TransportPage() {
                 </span>
                 <div className="min-w-0">
                   <h3 className="font-display text-xl font-semibold text-primary">{s.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground text-justify">
+                    {s.desc}
+                  </p>
                   {(s as any).details && (
                     <p className="mt-2 text-xs font-medium uppercase tracking-wider text-accent">
                       {(s as any).details}
@@ -125,7 +127,7 @@ function TransportPage() {
             <h2 className="mt-5 font-display text-3xl font-semibold text-primary">
               Your Vehicle Earns While You Don't Drive
             </h2>
-            <p className="mt-4 leading-relaxed text-foreground/80">
+            <p className="mt-4 leading-relaxed text-foreground/80 text-justify">
               Registering your vehicle takes minutes. We verify, manage bookings, coordinate payments, and handle enquiries. You set availability and pricing — we do the rest.
             </p>
             <ul className="mt-6 space-y-3">
@@ -179,13 +181,13 @@ function TransportPage() {
             Mobility is Not Just Logistics. It's Cultural Translation
           </h2>
           <div className="mt-6 space-y-4 text-primary-foreground/80 leading-relaxed">
-            <p>
+            <p className="text-justify">
               Ramotitanico is a Portuguese company built around one stubborn idea: the people who arrive here with the least paperwork often carry the most useful skills. We turn that skill into licensed, taxable, dignified work.
             </p>
-            <p>
+            <p className="text-justify">
               Every motorbike rented, every kilo of meat sold, and every enrolment confirmed is a small act of cultural translation — a humanities practice carried out in workshops, kitchens, and waiting rooms. We are run by, and for, the Afro-Asian-Lusophone diaspora.
             </p>
-            <p className="font-medium text-primary-foreground">
+            <p className="font-medium text-primary-foreground text-justify">
               Migration is not a problem to be managed. It is a culture to be resourced.
             </p>
           </div>

@@ -75,14 +75,14 @@ function AboutPage() {
               eyebrow="Who We Are"
               title="A Portugal-Based Multidisciplinary Organisation."
             />
-            <p className="text-lg leading-relaxed">
+            <p className="text-lg leading-relaxed text-justify">
               Ramotitanico operates from Braga across four interconnected sectors: education,
               construction, transport, and agriculture. We advance research and learning through
               global academic partnerships, deliver quality construction projects, run a
               peer-to-peer car rental marketplace across Portugal, and support sustainable
               agricultural development through expert consultancy.
             </p>
-            <p className="leading-relaxed">
+            <p className="leading-relaxed text-justify">
               We were established to address structural gaps where expertise and opportunity fail to
               meet. Today, that ambition extends from academic conferences and publications through
               to built infrastructure, accessible mobility, and resilient food systems — all
@@ -111,7 +111,7 @@ function AboutPage() {
             <h3 className="mt-4 font-display text-2xl font-semibold text-primary">
               A Connected Scholarly World that Serves Society.
             </h3>
-            <p className="mt-3 leading-relaxed text-foreground/80">
+            <p className="mt-3 leading-relaxed text-foreground/80 text-justify">
               We envision an international academic ecosystem in which knowledge moves freely across
               borders, disciplines, and sectors — and in which scholarship is held accountable to
               the societies that sustain it.
@@ -126,7 +126,7 @@ function AboutPage() {
             <h3 className="mt-4 font-display text-2xl font-semibold text-primary">
               Build Systems — Academic, Physical, and Social — that Create Lasting Value.
             </h3>
-            <p className="mt-3 leading-relaxed text-foreground/80">
+            <p className="mt-3 leading-relaxed text-foreground/80 text-justify">
               We design and operate conferences, publications, training programmes, construction
               projects, mobility platforms, and agricultural initiatives that turn expertise into
               institutional, community, and economic impact.
@@ -151,7 +151,9 @@ function AboutPage() {
                 <v.icon className="h-6 w-6" />
               </span>
               <h3 className="mt-5 font-display text-xl font-semibold text-primary">{v.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.desc}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {v.desc}
+              </p>
             </div>
           ))}
         </div>
@@ -166,7 +168,7 @@ function AboutPage() {
             From a Braga Office to Four Sectors, Forty Countries.
           </h2>
           <div className="mt-6 space-y-4 text-primary-foreground/80 leading-relaxed">
-            <p>
+            <p className="text-justify">
               Across more than forty countries, Ramotitanico aims to support universities and
               academic institutions in redesigning curricula, organizing international conferences,
               developing indexed publications, and facilitating mobility opportunities for
@@ -175,7 +177,7 @@ function AboutPage() {
               transport solutions such as peer-to-peer mobility platforms, and agricultural
               advancement through agritech initiatives and sustainable farming advisory.
             </p>
-            <p>
+            <p className="text-justify">
               Our approach is grounded in long-term impact—through stronger academic programs,
               meaningful research collaborations, sustainable infrastructure, efficient mobility
               solutions, and resilient agricultural practices. Ramotitanico aspires to be a

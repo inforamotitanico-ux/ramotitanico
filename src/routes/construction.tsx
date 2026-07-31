@@ -101,7 +101,9 @@ function ConstructionPage() {
                 </span>
                 <div className="min-w-0">
                   <h3 className="font-display text-xl font-semibold text-primary">{s.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground text-justify">
+                    {s.desc}
+                  </p>
                 </div>
               </div>
             </article>
@@ -119,13 +121,13 @@ function ConstructionPage() {
             Service is the Surface, Belonging is the Substance
           </h2>
           <div className="mt-6 space-y-4 text-primary-foreground/80 leading-relaxed">
-            <p>
+            <p className="text-justify">
               At first glance, some may wonder why a company in mobility, higher-education consultancy, Afro-Asian-Halal food, real estate and construction would help organise a humanities conference.
             </p>
-            <p>
+            <p className="text-justify">
               The answer is simple: our daily work is the humanities in practice. Every building we construct, every home we help a family purchase, and every mini-market we build is a small act of cultural translation — a humanities practice carried out in workshops, kitchens, and construction sites.
             </p>
-            <p className="font-medium text-primary-foreground">
+            <p className="font-medium text-primary-foreground text-justify">
               Migration is not a problem to be managed. It is a culture to be resourced.
             </p>
           </div>
@@ -209,13 +211,13 @@ function ConstructionPage() {
             Buildings that Serve Communities for Generations
           </h2>
           <div className="mt-6 space-y-4 text-primary-foreground/80 leading-relaxed">
-            <p>
+            <p className="text-justify">
               Ramotitanico plans, manages, and delivers construction projects across Portugal — from residential homes and commercial premises to mini-markets and restaurants that serve the Afro-Asian-Lusophone diaspora. 
             </p>
-            <p>
+            <p className="text-justify">
               We believe that built environments shape social outcomes. Every project we deliver carries a responsibility to the people who will use, maintain, and inherit it — a responsibility we take seriously at every stage of the project lifecycle. 
             </p>
-            <p className="font-medium text-primary-foreground">
+            <p className="font-medium text-primary-foreground text-justify">
               From service to story: helping families purchase homes and build long-term equity is not just commerce — it is participation in the human story.
             </p>
           </div>

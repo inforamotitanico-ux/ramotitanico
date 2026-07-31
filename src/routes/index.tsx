@@ -253,7 +253,7 @@ function HomePage() {
                   <s.icon className="h-6 w-6" />
                 </span>
                 <h3 className="mt-5 font-display text-xl font-semibold text-primary">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground text-justify">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -291,7 +291,7 @@ function HomePage() {
                 </span>
               </div>
               <h3 className="mt-5 font-display text-2xl font-semibold text-primary">{area.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{area.desc}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground text-justify">{area.desc}</p>
               <ul className="mt-6 space-y-2.5">
                 {area.features.map((f) => (
                   <li key={f} className="flex items-center gap-2.5 text-sm text-foreground/80">

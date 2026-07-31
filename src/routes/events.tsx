@@ -122,7 +122,7 @@ function EventsPage() {
               <h2 className="mt-5 font-display text-3xl font-semibold leading-tight sm:text-4xl">
                 Humanities Beyond Borders: Culture, Identity and Global Dialogues
               </h2>
-              <p className="mt-4 text-primary-foreground/80">
+              <p className="mt-4 text-primary-foreground/80 text-justify">
                 Two days of plenary lectures, parallel panels, doctoral colloquia, and policy
                 roundtables — convening scholars, educators, and decision-makers from across
                 continents to interrogate the most pressing questions in contemporary education and
