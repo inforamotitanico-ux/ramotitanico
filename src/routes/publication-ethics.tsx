@@ -71,18 +71,18 @@ function PublicationEthicsPage() {
       <section className="container-page py-20">
         {/* Overview Paragraph */}
         <div className="max-w-4xl space-y-4">
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-muted-foreground text-justify">
             <strong>Academia Humanities Review</strong> is committed to maintaining high standards of academic 
             integrity and publication ethics. The journal follows internationally accepted ethical principles 
             for scholarly publishing and expects authors, editors, and reviewers to act with honesty, fairness, 
             and transparency.
           </p>
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-muted-foreground text-justify">
             Authors must submit original work that has not been published elsewhere and is not under 
             consideration by another journal. Plagiarism, data fabrication, duplicate publication, unethical 
             authorship, and misrepresentation of sources are strictly prohibited.
           </p>
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-muted-foreground text-justify">
             The journal will handle complaints, corrections, conflicts of interest, and retractions according 
             to recognized publication ethics practices.
           </p>
@@ -105,7 +105,9 @@ function PublicationEthicsPage() {
                   <p.icon className="h-6 w-6" />
                 </span>
                 <h3 className="mt-4 font-display text-lg font-semibold text-primary">{p.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground text-justify">
+                  {p.desc}
+                </p>
               </article>
             ))}
           </div>

@@ -59,11 +59,11 @@ function AuthorGuidelinesPage() {
       <section className="container-page py-20">
         {/* Overview Paragraph */}
         <div className="max-w-4xl space-y-4">
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-muted-foreground text-justify">
             Authors should submit original manuscripts related to the humanities and interdisciplinary studies. 
             Manuscripts should normally be between <strong>5,000 and 8,000 words</strong>, including references.
           </p>
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-muted-foreground text-justify">
             All manuscripts should be submitted in <strong>Microsoft Word format</strong>. The journal will use 
             plagiarism-checking software before sending manuscripts for review.
           </p>

@@ -43,6 +43,7 @@ function AboutJournalPage() {
           eyebrow="Overview"
           title="A Platform for Humanities Scholarship."
           description="The Academia Humanities Review provides a rigorous, open-access forum for researchers across literature, linguistics, cultural studies, translation, and education — fostering dialogue between disciplines and across traditions."
+          className="[&_p]:text-justify"
         />
 
         {/* Clean info grid without cards */}
@@ -66,11 +67,11 @@ function AboutJournalPage() {
         </div>
 
         <div className="mt-14 max-w-3xl space-y-4 text-sm leading-relaxed text-muted-foreground">
-          <p>
+          <p className="text-justify">
             All articles are published under a Creative Commons Attribution (CC BY 4.0) licence,
             allowing free reuse with appropriate credit. Authors retain copyright of their work.
           </p>
-          <p>
+          <p className="text-justify">
             The Academia Humanities Review is committed to maintaining the highest editorial
             standards and follows the guidelines set by the Committee on Publication Ethics (COPE).
             All editorial decisions are made independently, ensuring scholarly integrity and

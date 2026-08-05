@@ -69,21 +69,21 @@ function AimsScopePage() {
       <section className="container-page py-20">
         {/* Journal Description */}
         <div className="max-w-4xl space-y-4">
-          <p className="text-lg leading-relaxed text-primary">
+          <p className="text-lg leading-relaxed text-primary text-justify">
             <strong>Academia Humanities Review</strong> is an international, peer-reviewed, 
             open-access academic journal published by <strong>Ramotitanico – Unipessoal LDA, Portugal</strong>.
           </p>
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-muted-foreground text-justify">
             The journal aims to provide a scholarly platform for researchers, academics, and postgraduate 
             scholars working in the broad fields of humanities and interdisciplinary studies.
           </p>
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-muted-foreground text-justify">
             The journal welcomes original research articles, review articles, book reviews, and critical 
             essays in areas including literature, language, cultural studies, postcolonial studies, 
             translation studies, gender studies, education, philosophy, history, media studies, digital 
             humanities, and global humanities.
           </p>
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-muted-foreground text-justify">
             <strong>Academia Humanities Review</strong> especially encourages research that promotes 
             intercultural dialogue, critical inquiry, ethical scholarship, and innovative approaches to 
             contemporary humanistic knowledge.
@@ -153,7 +153,7 @@ function AimsScopePage() {
 
         {/* Footer Note */}
         <div className="mt-16 border-t border-border pt-8">
-          <p className="text-center text-sm text-muted-foreground">
+          <p className="text-center text-sm text-muted-foreground text-justify">
             Academia Humanities Review · Published by Ramotitanico – Unipessoal LDA, Portugal
           </p>
         </div>

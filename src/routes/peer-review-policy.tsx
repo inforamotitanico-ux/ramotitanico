@@ -80,17 +80,17 @@ function PeerReviewPage() {
       <section className="container-page py-20">
         {/* Overview Paragraph */}
         <div className="max-w-4xl space-y-4">
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-muted-foreground text-justify">
             All submissions to <strong>Academia Humanities Review</strong> will undergo an initial editorial screening. 
             Manuscripts that meet the journal's aims, scope, and formatting requirements will be sent for double-blind 
             peer review.
           </p>
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-muted-foreground text-justify">
             Each article will normally be reviewed by two independent reviewers. The identities of authors and reviewers 
             will remain confidential. Based on reviewers' reports, the editorial decision may be: accepted, accepted with 
             minor revisions, accepted with major revisions, resubmission required, or rejected.
           </p>
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-base leading-relaxed text-muted-foreground text-justify">
             The final decision will rest with the <strong>Editor-in-Chief</strong>, in consultation with the editorial team.
           </p>
         </div>
@@ -115,7 +115,9 @@ function PeerReviewPage() {
                   <s.icon className="h-6 w-6 shrink-0 text-accent" />
                   <h3 className="font-display text-lg font-semibold text-primary">{s.title}</h3>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground text-justify">
+                  {s.desc}
+                </p>
               </article>
             ))}
           </div>

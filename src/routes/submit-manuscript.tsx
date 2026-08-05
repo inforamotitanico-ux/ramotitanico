@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { Mail, CheckCircle2, FileText, User, AtSign, Globe, BookOpen, Key, AlertCircle, X, Copy, Check } from "lucide-react";
+import { Mail, CheckCircle2, FileText, User, AtSign, BookOpen, Key, AlertCircle, X, Copy, Check } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { PageHero } from "@/components/ui/page-hero";
@@ -126,10 +126,10 @@ function SubmitManuscriptPage() {
     const email = "admin@ramotitanico.com";
     navigator.clipboard.writeText(email).then(() => {
       setCopied(true);
-      toast.success("Email copied to clipboard!");
+      toast.success("📧 Email copied to clipboard!");
       setTimeout(() => setCopied(false), 3000);
     }).catch(() => {
-      toast.error("Failed to copy email");
+      toast.error("Failed to copy email. Please copy manually.");
     });
   };
 
@@ -146,12 +146,6 @@ function SubmitManuscriptPage() {
       return;
     }
 
-    // Build statements summary
-    const statementsSummary = [...statements, ...acknowledgements]
-      .map((s) => `${s.label} ${parsed.data[s.name as keyof typeof parsed.data] === "yes" ? "✅ Yes" : "❌ No"}`)
-      .join("\n");
-
-    // Get current time
     const now = new Date();
     const timeString = now.toLocaleString("en-US", {
       dateStyle: "medium",
@@ -178,7 +172,9 @@ function SubmitManuscriptPage() {
       ethicsAck: yesNo(parsed.data.ethicsAck),
       consentAck: yesNo(parsed.data.consentAck),
       paymentAck: yesNo(parsed.data.paymentAck),
-      statements: statementsSummary,
+      statements: [...statements, ...acknowledgements]
+        .map((s) => `${s.label} ${parsed.data[s.name as keyof typeof parsed.data] === "yes" ? "✅ Yes" : "❌ No"}`)
+        .join("\n"),
       time: timeString,
     };
 
@@ -227,7 +223,7 @@ function SubmitManuscriptPage() {
         "vUG18KQybqZLer_86",
       );
       
-      toast.success("Submission details sent. Please email your manuscript file to admin@ramotitanico.com");
+      toast.success("✅ Submission details sent successfully!");
       setShowEmailPopup(false);
       const form = document.querySelector('form');
       if (form) form.reset();
@@ -254,6 +250,7 @@ function SubmitManuscriptPage() {
               eyebrow="Before You Send"
               title="Submission Requirements."
               description="Manuscripts that don't meet these requirements are returned for revision before entering editorial screening."
+              className="[&_p]:text-justify"
             />
             <ul className="mt-8 space-y-3">
               {requirements.map((r) => (
@@ -279,13 +276,31 @@ function SubmitManuscriptPage() {
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 After completing the form, you'll need to email your manuscript file directly to us.
               </p>
-              <a
-                href="mailto:admin@ramotitanico.com?subject=Manuscript%20Submission"
-                className="mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
-              >
-                <Mail className="h-4 w-4" />
-                admin@ramotitanico.com
-              </a>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <a
+                  href="mailto:admin@ramotitanico.com?subject=Manuscript%20Submission"
+                  className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
+                >
+                  <Mail className="h-4 w-4" />
+                  admin@ramotitanico.com
+                </a>
+                <button
+                  onClick={handleCopyEmail}
+                  className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="h-4 w-4 text-emerald-500" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-4 w-4" />
+                      Copy Email
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -509,7 +524,7 @@ function SubmitManuscriptPage() {
               {/* Email with Copy Button */}
               <div className="mt-3 flex items-center justify-center gap-2">
                 <a
-                  href="mailto:admin@ramotitanico.com?subject=Manuscript%20Submission%20-%20{{submissionData?.name}}"
+                  href={`mailto:admin@ramotitanico.com?subject=Manuscript%20Submission%20-%20${submissionData?.name || 'Author'}`}
                   className="text-lg font-semibold text-primary underline underline-offset-4 hover:text-primary/80"
                 >
                   admin@ramotitanico.com
@@ -538,7 +553,7 @@ function SubmitManuscriptPage() {
                 <ul className="mt-2 space-y-1 text-muted-foreground">
                   <li>• Your manuscript file (.docx or .pdf)</li>
                   <li>• Title page with author details (separate file)</li>
-                  <li>• Subject line: "Manuscript Submission - {submissionData?.name}"</li>
+                  <li>• Subject line: "Manuscript Submission - {submissionData?.name || 'Author'}"</li>
                 </ul>
               </div>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
