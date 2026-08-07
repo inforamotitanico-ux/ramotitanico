@@ -3,8 +3,9 @@ import { FileText, ExternalLink } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionTitle } from "@/components/ui/section-title";
 import journalCoverImage from "@/assets/Book-Cover.png";
-// Import the PDF file - matching your existing pattern
+// Import the PDF files - matching your existing pattern
 import sketchingDissentPdf from "@/assets/articles/SKETCHING DISSENT MULTIMODAL HUMOUR AND NONVIOLENT RESISTANCE IN PAKISTANI COMICS.pdf?url";
+import comparativeStudyPdf from "@/assets/articles/COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS.pdf?url";
 
 export const Route = createFileRoute("/current-issue")({
   head: () => ({
@@ -29,6 +30,12 @@ const articles = [
     authors: "A. Sehrish, A. Mahwish, A. Afshan", 
     pages: "1–17",
     pdf: sketchingDissentPdf
+  },
+  { 
+    title: "COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS: A LINGUISTIC ANALYSIS OF LI BAI'S CHANGGAN BALLADS", 
+    authors: "U. Inam, F. Laiba", 
+    pages: "1–14",
+    pdf: comparativeStudyPdf
   }
 ];
 
