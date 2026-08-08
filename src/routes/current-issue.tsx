@@ -34,7 +34,7 @@ const articles = [
   { 
     title: "COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS: A LINGUISTIC ANALYSIS OF LI BAI'S CHANGGAN BALLADS", 
     authors: "U. Inam, F. Laiba", 
-    pages: "1–14",
+    pages: "18–31",
     pdf: comparativeStudyPdf
   }
 ];
