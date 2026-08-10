@@ -6,7 +6,7 @@ import journalCoverImage from "@/assets/Book-Cover.png";
 // Import the PDF files - matching your existing pattern
 import sketchingDissentPdf from "@/assets/articles/SKETCHING DISSENT MULTIMODAL HUMOUR AND NONVIOLENT RESISTANCE IN PAKISTANI COMICS.pdf?url";
 import comparativeStudyPdf from "@/assets/articles/COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS.pdf?url";
-
+import hydrosocialCyclePdf from "@/assets/articles/The_Hydrosocial_Cycle_Zimbabwe_Pachawo_et_al.pdf";
 export const Route = createFileRoute("/current-issue")({
   head: () => ({
     meta: [
@@ -36,6 +36,12 @@ const articles = [
     authors: "U. Inam, F. Laiba", 
     pages: "18–31",
     pdf: comparativeStudyPdf
+  },
+  { 
+    title: "The Hydrosocial Cycle: Water as Culture, Not Just Resource; Reimagining Smallholder Irrigation Development in Zimbabwe", 
+    authors: "P. Vimbai, R. Lorraine, Z. Shingirirai, C. Tendai", 
+    pages: "32–47",
+    pdf: hydrosocialCyclePdf
   }
 ];
 
