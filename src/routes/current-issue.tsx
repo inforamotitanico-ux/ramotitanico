@@ -5,7 +5,7 @@ import { SectionTitle } from "@/components/ui/section-title";
 import journalCoverImage from "@/assets/Book-Cover.png";
 
 // Import the same PDF files used in Current Issue
-import sketchingDissentPdf from "@/assets/articles/SKETCHING DISSENT MULTIMODAL HUMOUR AND NONVIOLENT RESISTANCE IN PAKISTANI COMICS.pdf?url";
+import sketchingDissentPdf from "@/assets/articles/SKETCHING DISSENT.pdf";
 import comparativeStudyPdf from "@/assets/articles/COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS.pdf?url";
 import hydrosocialCyclePdf from "@/assets/articles/The Hydrosocial Cycle Water as Culture.pdf?url";
 
