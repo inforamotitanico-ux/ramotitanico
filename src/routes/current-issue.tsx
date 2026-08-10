@@ -50,7 +50,7 @@ const articles = [
 function CurrentIssuePage() {
   return (
     <>
-      <PageHero
+      <PageHero 
         backTo="/journal"
         backLabel="Journal Services"
         eyebrow="Current Issue"
