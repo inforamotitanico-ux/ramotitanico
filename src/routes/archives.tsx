@@ -7,7 +7,7 @@ import { SectionTitle } from "@/components/ui/section-title";
 // Import the same PDF files used in Current Issue
 import sketchingDissentPdf from "@/assets/articles/SKETCHING DISSENT.pdf?url";
 import comparativeStudyPdf from "@/assets/articles/COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS.pdf?url";
-// import hydrosocialCyclePdf from "@/assets/articles/The Hydrosocial Cycle Water as Culture, Not Just Resource; Reimagining Smallholder Irrigation Development in Zimbabwe.pdf?url";
+import hydrosocialCyclePdf from "@/assets/articles/The Hydrosocial Cycle Water as Culture.pdf";
 
 export const Route = createFileRoute("/archives")({
   head: () => ({
@@ -61,7 +61,7 @@ const issues = [
         authors:
           "P. Vimbai, R. Lorraine, Z. Shingirirai, C. Tendai",
         pages: "32–47",
-        // pdf: hydrosocialCyclePdf,
+        pdf: hydrosocialCyclePdf,
       },
     ],
   },
