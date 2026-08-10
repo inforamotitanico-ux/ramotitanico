@@ -40,7 +40,7 @@ const articles = [
     pdf: comparativeStudyPdf
   },
   { 
-    title: "The Hydrosocial Cycle: Water as Culture, Not Just Resource; Reimagining Smallholder Irrigation Development in Zimbabwe", 
+    title: "THE HYDROSOCIAL CYCLE: WATER AS CULTURE, NOT JUST RESOURCE; REIMAGINING SMALLHOLDER IRRIGATION DEVELOPMENT IN ZIMBABWE", 
     authors: "P. Vimbai, R. Lorraine, Z. Shingirirai, C. Tendai", 
     pages: "32–47",
     pdf: hydrosocialCyclePdf
