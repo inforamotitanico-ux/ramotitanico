@@ -1,13 +1,10 @@
+// src/routes/current-issue.tsx
 import { createFileRoute } from "@tanstack/react-router";
 import { FileText, ExternalLink } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionTitle } from "@/components/ui/section-title";
 import journalCoverImage from "@/assets/Book-Cover.png";
-
-// Import the same PDF files used in Current Issue
-import sketchingDissentPdf from "@/assets/articles/SKETCHING DISSENT.pdf";
-import comparativeStudyPdf from "@/assets/articles/COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS.pdf?url";
-import hydrosocialCyclePdf from "@/assets/articles/The Hydrosocial Cycle Water as Culture.pdf?url";
+import { getLatestArticles } from "@/lib/articles-data"; // Import helper function
 
 export const Route = createFileRoute("/current-issue")({
   head: () => ({
@@ -26,28 +23,9 @@ export const Route = createFileRoute("/current-issue")({
   component: CurrentIssuePage,
 });
 
-const articles = [
-  { 
-    title: "SKETCHING DISSENT: MULTIMODAL HUMOUR AND NONVIOLENT RESISTANCE IN PAKISTANI COMICS", 
-    authors: "A. Sehrish, A. Mahwish, A. Afshan", 
-    pages: "1–17",
-    pdf: sketchingDissentPdf
-  },
-  { 
-    title: "COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS: A LINGUISTIC ANALYSIS OF LI BAI'S CHANGGAN BALLADS", 
-    authors: "U. Inam, F. Laiba", 
-    pages: "18–31",
-    pdf: comparativeStudyPdf
-  },
-  { 
-    title: "THE HYDROSOCIAL CYCLE: WATER AS CULTURE, NOT JUST RESOURCE; REIMAGINING SMALLHOLDER IRRIGATION DEVELOPMENT IN ZIMBABWE", 
-    authors: "P. Vimbai, R. Lorraine, Z. Shingirirai, C. Tendai", 
-    pages: "32–47",
-    pdf: hydrosocialCyclePdf
-  }
-];
-
 function CurrentIssuePage() {
+  const articles = getLatestArticles(); // Get articles from the latest issue
+
   return (
     <>
       <PageHero 
@@ -92,9 +70,9 @@ function CurrentIssuePage() {
         <SectionTitle eyebrow="Table of Contents" title="In This Issue" />
 
         <div className="mt-10 space-y-6">
-          {articles.map((a, index) => (
+          {articles.map((article) => (
             <article
-              key={a.title}
+              key={article.title}
               className="group rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
             >
               <div className="flex flex-col gap-6 lg:flex-row lg:items-center">
@@ -106,11 +84,11 @@ function CurrentIssuePage() {
 
                   <div className="min-w-0 flex-1">
                     <h3 className="font-display text-xl font-semibold leading-snug text-primary transition-colors group-hover:text-primary/80">
-                      {a.title}
+                      {article.title}
                     </h3>
 
                     <p className="mt-2 text-sm text-muted-foreground">
-                      {a.authors}
+                      {article.authors}
                     </p>
                   </div>
                 </div>
@@ -118,7 +96,7 @@ function CurrentIssuePage() {
                 {/* Right - Button and Page Numbers */}
                 <div className="flex flex-col items-end gap-3">
                   <a
-                    href={a.pdf}
+                    href={article.pdf}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-primary/90"
@@ -128,7 +106,7 @@ function CurrentIssuePage() {
                   </a>
                   
                   <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                    pp. {a.pages}
+                    pp. {article.pages}
                   </span>
                 </div>
               </div>

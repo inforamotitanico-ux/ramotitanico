@@ -1,13 +1,10 @@
+// src/routes/archives.tsx
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Archive, FileText, ExternalLink, X } from "lucide-react";
 import { useState } from "react";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionTitle } from "@/components/ui/section-title";
-
-// Import the same PDF files used in Current Issue
-import sketchingDissentPdf from "@/assets/articles/SKETCHING DISSENT.pdf?url";
-import comparativeStudyPdf from "@/assets/articles/COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS.pdf?url";
-import hydrosocialCyclePdf from "@/assets/articles/The Hydrosocial Cycle Water as Culture.pdf?url";
+import { issues } from "@/lib/articles-data"; // Import issues directly
 
 export const Route = createFileRoute("/archives")({
   head: () => ({
@@ -35,37 +32,6 @@ export const Route = createFileRoute("/archives")({
   }),
   component: ArchivesPage,
 });
-
-const issues = [
-  {
-    volume: "Volume 1, Issue 1",
-    year: "2026",
-    articles: [
-      {
-        title:
-          "SKETCHING DISSENT: MULTIMODAL HUMOUR AND NONVIOLENT RESISTANCE IN PAKISTANI COMICS",
-        authors: "A. Sehrish, A. Mahwish, A. Afshan",
-        pages: "1–17",
-        pdf: sketchingDissentPdf,
-      },
-      {
-        title:
-          "COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS: A LINGUISTIC ANALYSIS OF LI BAI'S CHANGGAN BALLADS",
-        authors: "U. Inam, F. Laiba",
-        pages: "18–31",
-        pdf: comparativeStudyPdf,
-      },
-      {
-        title:
-          "THE HYDROSOCIAL CYCLE: WATER AS CULTURE, NOT JUST RESOURCE; REIMAGINING SMALLHOLDER IRRIGATION DEVELOPMENT IN ZIMBABWE",
-        authors:
-          "P. Vimbai, R. Lorraine, Z. Shingirirai, C. Tendai",
-        pages: "32–47",
-        pdf: hydrosocialCyclePdf,
-      },
-    ],
-  },
-];
 
 function ArchivesPage() {
   const [selectedIssue, setSelectedIssue] = useState<
@@ -121,10 +87,7 @@ function ArchivesPage() {
         </p>
       </section>
 
-      {/* =========================
-          ISSUE POPUP
-      ========================= */}
-
+      {/* Issue Popup - Same as before */}
       {selectedIssue && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"

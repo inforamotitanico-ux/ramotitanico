@@ -1,10 +1,16 @@
+// src/routes/gallery.tsx
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Download, Folder, X } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
-// import bannerImg from "@/assets/conference/banner.jpeg"; // BANNER IMAGE: This code belongs to the banner image - imported for conference banner display
-import conferencePdf1 from "@/assets/conference/Humanities Conference presentation June 2026.pdf";
-import conferencePdf2 from "@/assets/conference/RISE-Europe_Presentation_June 2026.pdf";
+import { 
+  galleryFolders, 
+  getItemsByFolder, 
+  getPdfsByFolder,
+  getFolderNames,
+  type GalleryItem,
+  type GalleryFolder
+} from "@/lib/gallery-data";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -20,46 +26,21 @@ export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
 });
 
-interface Item {
-  category: string;
-  caption: string;
-  // Unsplash source URL — public CDN, no key needed
-  src: string;
-}
-
-const conferenceGlob = import.meta.glob("/src/assets/conference/*.jpeg", {
-  eager: true,
-  import: "default",
-}) as Record<string, string>;
-
-const conferencePhotos = Object.entries(conferenceGlob)
-  .filter(([path]) => !path.endsWith("/banner.jpeg"))
-  .sort(([a], [b]) => a.localeCompare(b))
-  .map(([, url]) => url);
-
-const onlineConferenceFolder = "Online Conference — 26–27 June 2026";
-
-const conferencePdfs = [
-  { label: "Humanities Conference Presentation", href: conferencePdf1 },
-  { label: "RISE-Europe Presentation", href: conferencePdf2 },
-];
-
-const items: Item[] = [
-  // { category: onlineConferenceFolder, caption: "Conference banner", src: bannerImg }, // BANNER IMAGE: This code belongs to the banner image - commented out to exclude banner from gallery
-  ...conferencePhotos.map((src, i) => ({
-    category: onlineConferenceFolder,
-    caption: `Online Conference, 26–27 June 2026 — photo ${i + 1}`,
-    src,
-  })),
-];
-
-const folders = [onlineConferenceFolder] as const;
-
 function GalleryPage() {
-  const [openFolder, setOpenFolder] = useState<(typeof folders)[number] | null>(null);
-  const [lightbox, setLightbox] = useState<Item | null>(null);
+  const [openFolder, setOpenFolder] = useState<string | null>(null);
+  const [lightbox, setLightbox] = useState<GalleryItem | null>(null);
 
-  const photosInFolder = openFolder ? items.filter((i) => i.category === openFolder) : [];
+  // Get folder names
+  const folderNames = getFolderNames();
+
+  // Get items for the open folder
+  const photosInFolder = openFolder ? getItemsByFolder(openFolder) : [];
+  const pdfsInFolder = openFolder ? getPdfsByFolder(openFolder) : [];
+
+  // Find current folder object for display
+  const currentFolder = openFolder 
+    ? galleryFolders.find(f => f.name === openFolder) 
+    : null;
 
   return (
     <>
@@ -71,14 +52,14 @@ function GalleryPage() {
 
       <section className="container-page py-20">
         {!openFolder ? (
+          // Folder Grid View
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {folders.map((f) => {
-              const folderItems = items.filter((i) => i.category === f);
-              const cover = folderItems[0];
+            {galleryFolders.map((folder) => {
+              const cover = folder.items[0];
               return (
                 <button
-                  key={f}
-                  onClick={() => setOpenFolder(f)}
+                  key={folder.name}
+                  onClick={() => setOpenFolder(folder.name)}
                   className="group relative overflow-hidden rounded-2xl border border-border bg-card text-left shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elevated)]"
                   style={{ aspectRatio: "4/3" }}
                 >
@@ -96,9 +77,14 @@ function GalleryPage() {
                       <Folder className="h-5 w-5" />
                     </span>
                     <div>
-                      <div className="font-display text-base font-semibold text-primary-foreground">{f}</div>
+                      <div className="font-display text-base font-semibold text-primary-foreground">
+                        {folder.name}
+                      </div>
                       <div className="text-xs text-primary-foreground/70">
-                        {folderItems.length} photo{folderItems.length !== 1 ? "s" : ""}
+                        {folder.items.length} photo{folder.items.length !== 1 ? "s" : ""}
+                        {folder.pdfs && folder.pdfs.length > 0 && 
+                          ` · ${folder.pdfs.length} PDF${folder.pdfs.length !== 1 ? "s" : ""}`
+                        }
                       </div>
                     </div>
                   </div>
@@ -107,6 +93,7 @@ function GalleryPage() {
             })}
           </div>
         ) : (
+          // Single Folder View
           <>
             <button
               onClick={() => setOpenFolder(null)}
@@ -119,12 +106,18 @@ function GalleryPage() {
               <span className="grid h-11 w-11 place-items-center rounded-lg bg-primary text-primary-foreground">
                 <Folder className="h-5 w-5" />
               </span>
-              <h2 className="font-display text-2xl font-semibold text-primary">{openFolder}</h2>
+              <h2 className="font-display text-2xl font-semibold text-primary">
+                {openFolder}
+              </h2>
+              <span className="ml-2 text-sm text-muted-foreground">
+                ({photosInFolder.length} photos)
+              </span>
             </div>
 
-            {openFolder === onlineConferenceFolder && (
+            {/* PDF Downloads */}
+            {pdfsInFolder.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-3">
-                {conferencePdfs.map((pdf) => (
+                {pdfsInFolder.map((pdf) => (
                   <a
                     key={pdf.href}
                     href={pdf.href}
@@ -138,23 +131,28 @@ function GalleryPage() {
               </div>
             )}
 
+            {/* Photo Grid */}
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {photosInFolder.map((it, i) => (
+              {photosInFolder.map((item, index) => (
                 <button
-                  key={it.src}
-                  onClick={() => setLightbox(it)}
+                  key={item.src}
+                  onClick={() => setLightbox(item)}
                   className="group relative overflow-hidden rounded-2xl border border-border bg-card text-left shadow-[var(--shadow-card)] transition-all hover:shadow-[var(--shadow-elevated)]"
-                  style={{ aspectRatio: i % 5 === 0 ? "4/5" : "4/3" }}
+                  style={{ aspectRatio: index % 5 === 0 ? "4/5" : "4/3" }}
                 >
                   <img
-                    src={it.src}
-                    alt={it.caption}
+                    src={item.src}
+                    alt={item.caption}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary/85 to-transparent p-4">
-                    <div className="text-[10px] font-semibold uppercase tracking-wider text-accent">{it.category}</div>
-                    <div className="mt-0.5 text-sm font-medium text-primary-foreground">{it.caption}</div>
+                    <div className="text-[10px] font-semibold uppercase tracking-wider text-accent">
+                      {item.category}
+                    </div>
+                    <div className="mt-0.5 text-sm font-medium text-primary-foreground">
+                      {item.caption}
+                    </div>
                   </div>
                 </button>
               ))}
@@ -163,6 +161,7 @@ function GalleryPage() {
         )}
       </section>
 
+      {/* Lightbox */}
       {lightbox && (
         <div
           className="fixed inset-0 z-[100] grid place-items-center bg-primary/90 p-4 backdrop-blur-sm"
@@ -172,13 +171,22 @@ function GalleryPage() {
             type="button"
             aria-label="Close"
             className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full bg-background/90 text-primary"
-            onClick={(e) => { e.stopPropagation(); setLightbox(null); }}
+            onClick={(e) => { 
+              e.stopPropagation(); 
+              setLightbox(null); 
+            }}
           >
             <X className="h-5 w-5" />
           </button>
           <figure className="max-h-[88vh] max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            <img src={lightbox.src} alt={lightbox.caption} className="max-h-[80vh] w-full rounded-xl object-contain" />
-            <figcaption className="mt-3 text-center text-sm text-primary-foreground/80">{lightbox.caption}</figcaption>
+            <img 
+              src={lightbox.src} 
+              alt={lightbox.caption} 
+              className="max-h-[80vh] w-full rounded-xl object-contain" 
+            />
+            <figcaption className="mt-3 text-center text-sm text-primary-foreground/80">
+              {lightbox.caption}
+            </figcaption>
           </figure>
         </div>
       )}
