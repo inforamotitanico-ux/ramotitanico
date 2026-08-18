@@ -1,12 +1,11 @@
 // src/routes/gallery.tsx
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, Download, Folder, X } from "lucide-react";
+import { ArrowLeft, Folder, X } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { 
   galleryFolders, 
   getItemsByFolder, 
-  getPdfsByFolder,
   getFolderNames,
   type GalleryItem,
   type GalleryFolder
@@ -30,12 +29,8 @@ function GalleryPage() {
   const [openFolder, setOpenFolder] = useState<string | null>(null);
   const [lightbox, setLightbox] = useState<GalleryItem | null>(null);
 
-  // Get folder names
-  const folderNames = getFolderNames();
-
   // Get items for the open folder
   const photosInFolder = openFolder ? getItemsByFolder(openFolder) : [];
-
 
   return (
     <>
@@ -77,9 +72,6 @@ function GalleryPage() {
                       </div>
                       <div className="text-xs text-primary-foreground/70">
                         {folder.items.length} photo{folder.items.length !== 1 ? "s" : ""}
-                        {folder.pdfs && folder.pdfs.length > 0 && 
-                          ` · ${folder.pdfs.length} PDF${folder.pdfs.length !== 1 ? "s" : ""}`
-                        }
                       </div>
                     </div>
                   </div>
@@ -108,7 +100,6 @@ function GalleryPage() {
                 ({photosInFolder.length} photos)
               </span>
             </div>
-
 
             {/* Photo Grid */}
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
