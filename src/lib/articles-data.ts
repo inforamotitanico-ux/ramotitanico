@@ -2,7 +2,7 @@
 import sketchingDissentPdf from "@/assets/articles/SKETCHING DISSENT.pdf";
 import comparativeStudyPdf from "@/assets/articles/COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS.pdf?url";
 import hydrosocialCyclePdf from "@/assets/articles/The Hydrosocial Cycle Water as Culture.pdf?url";
-
+import mynameisjahan from "@/assets/articles/My Name Is Jahan” Queer Time, Anti-Futurity, and the Refusal of Reproductive Temporality in Saad T. Farooqi’s White World.pdf??url";
 // Article Interface
 export interface Article {
   title: string;
@@ -43,6 +43,12 @@ export const articles: Article[] = [
     authors: "P. Vimbai, R. Lorraine, Z. Shingirirai, C. Tendai", 
     pages: "32–47",
     pdf: hydrosocialCyclePdf
+  },
+  { 
+    title: "“My Name Is Jahan”: Queer Time, Anti-Futurity, and the Refusal of Reproductive Temporality in Saad T. Farooqi’s White World", 
+    authors: "J. Mudassar", 
+    pages: "48–58",
+    pdf: mynameisjahan
   }
   
 ];
