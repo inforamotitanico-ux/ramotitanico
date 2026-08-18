@@ -49,6 +49,11 @@ const associateEditors: Editor[] = [
 // Editorial Board Members (International Board)
 const editorialBoardMembers: Editor[] = [
   { 
+   name: "Dr. Patricia Jabbeh Wesley",
+    role: "Editorial Board Member",
+    affiliation: "Pennsylvania State University, USA",
+  },
+  { 
     name: "Dr. Boothenia Majoul",
     role: "Editorial Board Member",
     affiliation: "University of Carthage, Tunisia",
