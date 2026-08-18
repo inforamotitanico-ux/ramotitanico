@@ -35,12 +35,7 @@ function GalleryPage() {
 
   // Get items for the open folder
   const photosInFolder = openFolder ? getItemsByFolder(openFolder) : [];
-  const pdfsInFolder = openFolder ? getPdfsByFolder(openFolder) : [];
 
-  // Find current folder object for display
-  const currentFolder = openFolder 
-    ? galleryFolders.find(f => f.name === openFolder) 
-    : null;
 
   return (
     <>
