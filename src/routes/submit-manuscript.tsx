@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { Mail, CheckCircle2, FileText, User, AtSign, BookOpen, Key, AlertCircle, X, Copy, Check } from "lucide-react";
+import { Mail, CheckCircle2, FileText, User, AtSign, BookOpen, Key, AlertCircle, X, Copy, Check, Users, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { PageHero } from "@/components/ui/page-hero";
@@ -89,25 +89,37 @@ const acknowledgements = [
   },
 ] as const;
 
-const schema = z.object({
-  name: z.string().trim().min(2, "Name required").max(120),
-  email: z.string().trim().email("Valid email required").max(200),
-  researchNetwork: z.string().trim().max(160).optional().or(z.literal("")),
-  title: z.string().trim().min(5, "Title required").max(300),
-  subtitle: z.string().trim().max(300).optional().or(z.literal("")),
-  abstract: z.string().trim().min(50, "Abstract should be approximately 150–250 words").max(3000),
-  keywords: z.string().trim().min(3, "List at least three keywords, comma separated"),
-  wordCount: z.enum(["yes", "no"], { message: "Please answer this question" }),
-  aimsScope: z.enum(["yes", "no"], { message: "Please answer this question" }),
-  abstractClear: z.enum(["yes", "no"], { message: "Please answer this question" }),
-  clearlyWritten: z.enum(["yes", "no"], { message: "Please answer this question" }),
-  referencesListed: z.enum(["yes", "no"], { message: "Please answer this question" }),
-  citationsClear: z.enum(["yes", "no"], { message: "Please answer this question" }),
-  notElsewhere: z.enum(["yes", "no"], { message: "Please answer this question" }),
-  ethicsAck: z.literal("yes", { message: "You must acknowledge the Publication Ethics Statement to submit" }),
-  consentAck: z.literal("yes", { message: "You must acknowledge the Informed Consent Statement to submit" }),
-  paymentAck: z.literal("yes", { message: "You must acknowledge the submission terms to submit" }),
-});
+// Dynamic schema builder for authors
+const getSchema = (numAuthors: number) => {
+  const authorFields: Record<string, any> = {};
+  // Start from 2 because author 1 is the corresponding author
+  for (let i = 2; i <= numAuthors; i++) {
+    authorFields[`authorName${i}`] = z.string().trim().min(2, `Author ${i} name required`).max(120);
+    authorFields[`authorEmail${i}`] = z.string().trim().email(`Valid email required for author ${i}`).max(200);
+  }
+  
+  return z.object({
+    name: z.string().trim().min(2, "Corresponding author name required").max(120),
+    email: z.string().trim().email("Valid email required").max(200),
+    numAuthors: z.string().transform((val) => parseInt(val, 10)),
+    researchNetwork: z.string().trim().max(160).optional().or(z.literal("")),
+    title: z.string().trim().min(5, "Title required").max(300),
+    subtitle: z.string().trim().max(300).optional().or(z.literal("")),
+    abstract: z.string().trim().min(50, "Abstract should be approximately 150–250 words").max(3000),
+    keywords: z.string().trim().min(3, "List at least three keywords, comma separated"),
+    wordCount: z.enum(["yes", "no"], { message: "Please answer this question" }),
+    aimsScope: z.enum(["yes", "no"], { message: "Please answer this question" }),
+    abstractClear: z.enum(["yes", "no"], { message: "Please answer this question" }),
+    clearlyWritten: z.enum(["yes", "no"], { message: "Please answer this question" }),
+    referencesListed: z.enum(["yes", "no"], { message: "Please answer this question" }),
+    citationsClear: z.enum(["yes", "no"], { message: "Please answer this question" }),
+    notElsewhere: z.enum(["yes", "no"], { message: "Please answer this question" }),
+    ethicsAck: z.enum(["yes", "no"], { message: "Please answer this question" }),
+    consentAck: z.enum(["yes", "no"], { message: "Please answer this question" }),
+    paymentAck: z.enum(["yes", "no"], { message: "Please answer this question" }),
+    ...authorFields,
+  });
+};
 
 function SubmitManuscriptPage() {
   const [submitting, setSubmitting] = useState(false);
@@ -116,6 +128,7 @@ function SubmitManuscriptPage() {
   const [showStatementPopup, setShowStatementPopup] = useState(false);
   const [currentPopupContent, setCurrentPopupContent] = useState<any>(null);
   const [copied, setCopied] = useState(false);
+  const [numAuthors, setNumAuthors] = useState(1);
 
   const handleOpenStatementPopup = (content: any) => {
     setCurrentPopupContent(content);
@@ -134,55 +147,83 @@ function SubmitManuscriptPage() {
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitting(true);
-    const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
-    const parsed = schema.safeParse(data);
-    
-    if (!parsed.success) {
-      toast.error(parsed.error.issues[0]?.message ?? "Please review your submission.");
-      setSubmitting(false);
-      return;
-    }
-
-    const now = new Date();
-    const timeString = now.toLocaleString("en-US", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    });
-
-    const yesNo = (value: string) => (value === "yes" ? "✅ Yes" : "❌ No");
-
-    const templateParams: Record<string, string> = {
-      name: parsed.data.name,
-      email: parsed.data.email,
-      researchNetwork: parsed.data.researchNetwork || "Not provided",
-      title: parsed.data.title,
-      subtitle: parsed.data.subtitle || "Not provided",
-      abstract: parsed.data.abstract,
-      keywords: parsed.data.keywords,
-      wordCount: yesNo(parsed.data.wordCount),
-      aimsScope: yesNo(parsed.data.aimsScope),
-      abstractClear: yesNo(parsed.data.abstractClear),
-      clearlyWritten: yesNo(parsed.data.clearlyWritten),
-      referencesListed: yesNo(parsed.data.referencesListed),
-      citationsClear: yesNo(parsed.data.citationsClear),
-      notElsewhere: yesNo(parsed.data.notElsewhere),
-      ethicsAck: yesNo(parsed.data.ethicsAck),
-      consentAck: yesNo(parsed.data.consentAck),
-      paymentAck: yesNo(parsed.data.paymentAck),
-      statements: [...statements, ...acknowledgements]
-        .map((s) => `${s.label} ${parsed.data[s.name as keyof typeof parsed.data] === "yes" ? "✅ Yes" : "❌ No"}`)
-        .join("\n"),
-      time: timeString,
-    };
-
-    setSubmissionData(parsed.data);
-    setShowEmailPopup(true);
+  e.preventDefault();
+  setSubmitting(true);
+  const form = e.currentTarget;
+  const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
+  
+  // Get the number of authors from the form data
+  const numAuthorsValue = parseInt(data.numAuthors || "1", 10);
+  const schema = getSchema(numAuthorsValue);
+  const parsed = schema.safeParse(data);
+  
+  if (!parsed.success) {
+    const errorMessage = parsed.error.issues[0]?.message ?? "Please review your submission.";
+    toast.error(errorMessage);
     setSubmitting(false);
+    return;
+  }
+
+  const now = new Date();
+  const timeString = now.toLocaleString("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  const yesNo = (value: string) => (value === "yes" ? "✅ Yes" : "❌ No");
+
+  // Type assertion for dynamic access
+const formData = parsed.data as any;
+
+  // Build authors list - only for authors 2 and above (co-authors)
+  const coAuthorsList = [];
+  const allAuthorsList = [];
+  
+  // Add corresponding author
+  allAuthorsList.push(`Author 1: ${formData.name} (${formData.email})`);
+  
+  // Add co-authors
+  for (let i = 2; i <= numAuthorsValue; i++) {
+    const name = formData[`authorName${i}`];
+    const email = formData[`authorEmail${i}`];
+    if (name || email) {
+      const authorStr = `Author ${i}: ${name || 'N/A'} (${email || 'N/A'})`;
+      coAuthorsList.push(authorStr);
+      allAuthorsList.push(authorStr);
+    }
+  }
+
+  const templateParams: Record<string, string> = {
+    name: formData.name,
+    email: formData.email,
+    numAuthors: formData.numAuthors.toString(),
+    coAuthors: coAuthorsList.length > 0 ? coAuthorsList.join("\n") : "None",
+    allAuthors: allAuthorsList.join("\n"),
+    researchNetwork: formData.researchNetwork || "Not provided",
+    title: formData.title,
+    subtitle: formData.subtitle || "Not provided",
+    abstract: formData.abstract,
+    keywords: formData.keywords,
+    wordCount: yesNo(formData.wordCount),
+    aimsScope: yesNo(formData.aimsScope),
+    abstractClear: yesNo(formData.abstractClear),
+    clearlyWritten: yesNo(formData.clearlyWritten),
+    referencesListed: yesNo(formData.referencesListed),
+    citationsClear: yesNo(formData.citationsClear),
+    notElsewhere: yesNo(formData.notElsewhere),
+    ethicsAck: yesNo(formData.ethicsAck),
+    consentAck: yesNo(formData.consentAck),
+    paymentAck: yesNo(formData.paymentAck),
+    statements: [...statements, ...acknowledgements]
+      .map((s) => `${s.label} ${formData[s.name as keyof typeof formData] === "yes" ? "✅ Yes" : "❌ No"}`)
+      .join("\n"),
+    time: timeString,
   };
 
+  setSubmissionData({ ...formData, coAuthorsList, allAuthorsList });
+  setShowEmailPopup(true);
+  setSubmitting(false);
+};
   const handleSendEmail = async () => {
     if (!submissionData) return;
     
@@ -192,6 +233,9 @@ function SubmitManuscriptPage() {
       const templateParams = {
         name: submissionData.name,
         email: submissionData.email,
+        numAuthors: submissionData.numAuthors.toString(),
+        coAuthors: submissionData.coAuthorsList?.length > 0 ? submissionData.coAuthorsList.join("\n") : "None",
+        allAuthors: submissionData.allAuthorsList?.join("\n") || "N/A",
         researchNetwork: submissionData.researchNetwork || "Not provided",
         title: submissionData.title,
         subtitle: submissionData.subtitle || "Not provided",
@@ -227,10 +271,54 @@ function SubmitManuscriptPage() {
       setShowEmailPopup(false);
       const form = document.querySelector('form');
       if (form) form.reset();
+      setNumAuthors(1);
     } catch (error) {
       console.error("EmailJS Error:", error);
       toast.error("Failed to send email. Please try again.");
     }
+  };
+
+  // Render author fields based on number of authors (excluding corresponding author)
+  const renderAuthorFields = () => {
+    const fields = [];
+    // Start from 2 because author 1 is the corresponding author
+    for (let i = 2; i <= numAuthors; i++) {
+      fields.push(
+        <div key={`author-${i}`} className="rounded-lg border border-border bg-secondary/20 p-4">
+          <h5 className="text-sm font-semibold text-primary mb-3">Author {i}</h5>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Full Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                name={`authorName${i}`}
+                type="text"
+                maxLength={120}
+                placeholder={`Author ${i} full name`}
+                className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Email <span className="text-red-500">*</span>
+              </label>
+              <div className="relative mt-2">
+                <AtSign className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <input
+                  name={`authorEmail${i}`}
+                  type="email"
+                  maxLength={200}
+                  placeholder={`author${i}@email.com`}
+                  className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return fields;
   };
 
   return (
@@ -320,35 +408,77 @@ function SubmitManuscriptPage() {
                 <User className="h-4 w-4 text-primary" />
                 <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Author Information</h4>
               </div>
-              <div className="mt-4 grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Full Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    name="name"
-                    type="text"
-                    maxLength={200}
-                    placeholder="Dr. Jane Smith"
-                    className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Email <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative mt-2">
-                    <AtSign className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                    <input
-                      name="email"
-                      type="email"
-                      maxLength={200}
-                      placeholder="jane.smith@university.edu"
-                      className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    />
+              
+              {/* Number of Authors Dropdown */}
+              <div className="mt-4">
+                <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Number of Authors <span className="text-red-500">*</span>
+                </label>
+                <div className="relative mt-2">
+                  <Users className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <select
+                    name="numAuthors"
+                    value={numAuthors}
+                    onChange={(e) => setNumAuthors(parseInt(e.target.value, 10))}
+                    className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none"
+                  >
+                    {[1, 2, 3, 4, 5].map((num) => (
+                      <option key={num} value={num}>
+                        {num} {num === 1 ? 'Author' : 'Authors'}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                    <svg className="h-4 w-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
                   </div>
                 </div>
               </div>
+
+              {/* Corresponding Author */}
+              <div className="mt-4 rounded-lg border border-primary/20 bg-primary/5 p-4">
+                <h5 className="text-sm font-semibold text-primary mb-3">Corresponding Author</h5>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      Full Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      name="name"
+                      type="text"
+                      maxLength={200}
+                      placeholder="Dr. Jane Smith"
+                      className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      Email <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative mt-2">
+                      <AtSign className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                      <input
+                        name="email"
+                        type="email"
+                        maxLength={200}
+                        placeholder="jane.smith@university.edu"
+                        className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Co-authors */}
+              {numAuthors > 1 && (
+                <div className="mt-4">
+                  <h5 className="text-sm font-semibold text-muted-foreground mb-3">Co-authors</h5>
+                  <div className="space-y-4">
+                    {renderAuthorFields()}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Step 2: Article Information */}

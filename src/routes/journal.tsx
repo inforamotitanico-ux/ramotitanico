@@ -228,7 +228,7 @@ function JournalPage() {
             Our Impact
           </span>
           <h2 className="mt-5 font-display text-3xl font-semibold sm:text-4xl">
-            Eighty-Five Publications and Counting.
+            A Growing Body of Scholarly Work.
           </h2>
           <div className="mt-6 space-y-4 text-primary-foreground/80 leading-relaxed">
             <p className="text-justify" >

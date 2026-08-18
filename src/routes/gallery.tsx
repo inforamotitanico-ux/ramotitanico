@@ -114,22 +114,6 @@ function GalleryPage() {
               </span>
             </div>
 
-            {/* PDF Downloads */}
-            {pdfsInFolder.length > 0 && (
-              <div className="mt-6 flex flex-wrap gap-3">
-                {pdfsInFolder.map((pdf) => (
-                  <a
-                    key={pdf.href}
-                    href={pdf.href}
-                    download
-                    className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm transition-all hover:brightness-95"
-                  >
-                    <Download className="h-4 w-4" />
-                    {pdf.label}
-                  </a>
-                ))}
-              </div>
-            )}
 
             {/* Photo Grid */}
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
