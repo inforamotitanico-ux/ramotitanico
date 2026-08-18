@@ -6,9 +6,7 @@ import { PageHero } from "@/components/ui/page-hero";
 import { 
   galleryFolders, 
   getItemsByFolder, 
-  getFolderNames,
   type GalleryItem,
-  type GalleryFolder
 } from "@/lib/gallery-data";
 
 export const Route = createFileRoute("/gallery")({
