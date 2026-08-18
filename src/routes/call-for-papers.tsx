@@ -24,6 +24,13 @@ const themes = [
   "Digital Pedagogy & AI",
   "Comparative Education Policy",
   "Equity, Access & Inclusion",
+  "Humanities",
+  "Literature",
+  "Cultural Studies",
+  "Linguistics",
+  "Translation Studies",
+  "Education", 
+  "Interdisciplinary Humanities"
 ];
 
 const timeline = [

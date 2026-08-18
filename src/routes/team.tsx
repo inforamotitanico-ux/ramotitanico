@@ -27,7 +27,7 @@ const founder: Person = {
   initials: "RM",
   name: "Dr. Rasib Mahmood",
   role: "Founder, Honorary CEO & Managing Director",
-  bio: "Leads the organization's strategic direction, international partnerships, and editorial programme. Two decades of experience across European and Asian higher education institutions.",
+  bio: "Leads the organization's strategic direction, international partnerships, and editorial programme. Two decades of experience across European and Asian higher education institutions. Committed to fostering interdisciplinary dialogue, advancing open-access scholarship, and creating meaningful opportunities for researchers to contribute to global knowledge production."
 };
 
 const advisory: Person[] = [
@@ -64,7 +64,9 @@ function Card({ p, featured = false }: { p: Person; featured?: boolean }) {
         {p.name}
       </h3>
       <div className="mt-1 text-xs font-medium uppercase tracking-wider text-accent-foreground/80">{p.role}</div>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.bio}</p>
+      <p className={`mt-3 text-sm leading-relaxed text-muted-foreground ${featured ? "text-justify" : ""}`}>
+        {p.bio}
+      </p>
     </article>
   );
 }

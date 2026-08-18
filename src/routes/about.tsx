@@ -62,11 +62,16 @@ const values = [
 function AboutPage() {
   return (
     <>
+    
       <PageHero
-        eyebrow="About Ramotitanico"
-        title="Education, Construction, Transport, and Agriculture — Built from Braga."
-        description="We are a multidisciplinary organisation operating across four sectors, connecting scholars, building infrastructure, enabling mobility, and cultivating sustainable agriculture from our base in Portugal."
-      />
+  eyebrow="About Ramotitanico"
+  title="Education, Construction, Transport, and Agriculture — Built from Braga."
+  description={
+    <span style={{ textAlign: 'justify', display: 'block' }}>
+      We are a multidisciplinary organisation operating across four sectors, connecting scholars, building infrastructure, enabling mobility, and cultivating sustainable agriculture from our base in Portugal.
+    </span>
+  }
+/>
 
       <section className="container-page py-20">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
@@ -165,11 +170,11 @@ function AboutPage() {
             Global Impact
           </span>
           <h2 className="mt-5 font-display text-3xl font-semibold sm:text-4xl">
-            From a Braga Office to Four Sectors, Forty Countries.
+            From a Braga Office to Four Sectors, Around the Globe.
           </h2>
           <div className="mt-6 space-y-4 text-primary-foreground/80 leading-relaxed">
             <p className="text-justify">
-              Across more than forty countries, Ramotitanico aims to support universities and
+              Ramotitanico aims to support universities and
               academic institutions in redesigning curricula, organizing international conferences,
               developing indexed publications, and facilitating mobility opportunities for
               early-career researchers. In Portugal, the organization envisions expanding its

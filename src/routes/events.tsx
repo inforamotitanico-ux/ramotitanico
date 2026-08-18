@@ -9,6 +9,9 @@ import {
   CalendarClock,
   BookOpen,
   Send,
+  Copy,
+  Check,
+  Mail,
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionTitle } from "@/components/ui/section-title";
@@ -21,6 +24,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import abstractBook from "@/assets/book/abstract-book.pdf";
+import { useState } from "react";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
@@ -103,6 +107,15 @@ const benefits = [
 ];
 
 function EventsPage() {
+  const [copied, setCopied] = useState(false);
+  const email = "humanitiesacdemia@gmail.com";
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <>
       <PageHero
@@ -205,12 +218,79 @@ function EventsPage() {
               description="We welcome original research, case studies, policy analyses, and theoretical contributions across education, research methodology, innovation studies, and sustainable development."
             />
             <div className="mt-6">
-              <Link
-                        to="/submit-manuscript"
-                        className="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-sm transition-all hover:brightness-95"
-                      >
-                        Submit Your Contribution
-                      </Link>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button className="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-sm transition-all hover:brightness-95">
+                    <Send className="h-4 w-4" />
+                    Submit Your Abstract
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2">
+                      <Mail className="h-5 w-5 text-accent" />
+                      Submit Your Abstract
+                    </DialogTitle>
+                    <DialogDescription>
+                      Send your abstract to our editorial team for review and consideration.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div className="rounded-lg bg-surface p-4 border border-border">
+                      <p className="text-sm text-foreground/80 mb-3">
+                        If you want to submit your abstract, please send it to the following email address:
+                      </p>
+                      <div className="flex items-center gap-3 bg-card p-3 rounded-md border border-border">
+                        <Mail className="h-4 w-4 text-accent shrink-0" />
+                        <span className="text-sm font-medium text-primary">{email}</span>
+                        <button
+                          onClick={copyEmail}
+                          className="ml-auto inline-flex items-center gap-1.5 rounded-md bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent-foreground transition-all hover:bg-accent/20"
+                        >
+                          {copied ? (
+                            <>
+                              <Check className="h-3.5 w-3.5" />
+                              Copied!
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="h-3.5 w-3.5" />
+                              Copy
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="rounded-lg bg-accent/5 p-4 border border-accent/20">
+                      <h4 className="text-sm font-semibold text-primary mb-2">Submission Guidelines:</h4>
+                      <ul className="space-y-1.5 text-sm text-foreground/75">
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent">•</span>
+                          Include your full name, affiliation, and contact details
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent">•</span>
+                          Abstract should be between 250-300 words
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent">•</span>
+                          Mention 3-5 keywords relevant to your research
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-accent">•</span>
+                          Indicate your preferred presentation mode (online/hybrid/physical)
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="rounded-lg bg-primary/5 p-3 border border-primary/10">
+                      <p className="text-xs text-foreground/60">
+                        <span className="font-semibold">Note:</span> All submissions will be reviewed by our scientific committee. 
+                        You will receive a confirmation email within 3-5 working days.
+                      </p>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
           <div className="rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-card)]">

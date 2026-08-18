@@ -9,10 +9,14 @@ import {
   Key,
   BookOpen,
   FileUp,
-  ShieldCheck
+  ShieldCheck,
+  Send,
+  Copy,
+  Check
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionTitle } from "@/components/ui/section-title";
+import { useState } from "react";
 
 export const Route = createFileRoute("/author-guidelines")({
   head: () => ({
@@ -46,6 +50,15 @@ const formatRequirements = [
 ];
 
 function AuthorGuidelinesPage() {
+  const [copied, setCopied] = useState(false);
+  const email = "admin@ramotitanico.com";
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <>
       <PageHero
@@ -145,6 +158,67 @@ function AuthorGuidelinesPage() {
                     <span className="text-sm text-foreground/85">{item}</span>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Submit Your File Section */}
+        <div className="mt-16 rounded-2xl border-2 border-primary/20 bg-primary/5 p-8">
+          <div className="flex items-start gap-4">
+            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
+              <FileUp className="h-7 w-7" />
+            </span>
+            <div className="flex-1">
+              <h3 className="font-display text-2xl font-semibold text-primary">Submit Your File</h3>
+              <p className="mt-2 text-base text-muted-foreground">
+                After completing the form, you'll need to email your manuscript file directly to us.
+              </p>
+              <div className="mt-4 flex flex-wrap items-center gap-4">
+                <div className="flex items-center gap-3 rounded-lg bg-card px-5 py-3 border border-border">
+                  <Mail className="h-5 w-5 text-primary" />
+                  <span className="font-medium text-primary">{email}</span>
+                  <button
+                    onClick={copyEmail}
+                    className="inline-flex items-center gap-1.5 rounded-md bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary transition-all hover:bg-primary/20"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="h-3.5 w-3.5" />
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-3.5 w-3.5" />
+                        Copy Email
+                      </>
+                    )}
+                  </button>
+                </div>
+                <a
+                  href={`mailto:${email}`}
+                  className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:brightness-95"
+                >
+                  <Send className="h-4 w-4" />
+                  Send Email
+                </a>
+              </div>
+              <div className="mt-4 rounded-lg bg-primary/10 p-4 border border-primary/20">
+                <h4 className="text-sm font-semibold text-primary mb-2">File Submission Guidelines:</h4>
+                <ul className="space-y-1.5 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary">•</span>
+                    Send your manuscript as a <strong>.docx</strong> file
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary">•</span>
+                    Include your full name and article title in the email subject line
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary">•</span>
+                    You will receive a confirmation email within 2-3 working days
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
