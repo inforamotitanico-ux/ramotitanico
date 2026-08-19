@@ -66,54 +66,54 @@ function CurrentIssuePage() {
       </section>
 
       {/* Table of Contents Section */}
-      <section className="container-page py-20">
-        <SectionTitle eyebrow="Table of Contents" title="In This Issue" />
+<section className="container-page py-20">
+  <SectionTitle eyebrow="Table of Contents" title="In This Issue" />
 
-        <div className="mt-10 space-y-6">
-          {articles.map((article) => (
-            <article
-              key={article.title}
-              className="group rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+  <div className="mt-10 space-y-6">
+    {articles.map((article) => (
+      <article
+        key={article.title}
+        className="group rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+      >
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center">
+          {/* Left */}
+          <div className="flex flex-1 gap-5">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <FileText className="h-7 w-7" />
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <h3 className="font-display text-xl font-semibold leading-snug text-primary transition-colors group-hover:text-primary/80">
+                {article.title.toUpperCase()}
+              </h3>
+
+              <p className="mt-2 text-sm text-muted-foreground">
+                {article.authors}
+              </p>
+            </div>
+          </div>
+
+          {/* Right - Button and Page Numbers */}
+          <div className="flex flex-col items-end gap-3">
+            <a
+              href={article.pdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-primary/90"
             >
-              <div className="flex flex-col gap-6 lg:flex-row lg:items-center">
-                {/* Left */}
-                <div className="flex flex-1 gap-5">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    <FileText className="h-7 w-7" />
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <h3 className="font-display text-xl font-semibold leading-snug text-primary transition-colors group-hover:text-primary/80">
-                      {article.title}
-                    </h3>
-
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {article.authors}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Right - Button and Page Numbers */}
-                <div className="flex flex-col items-end gap-3">
-                  <a
-                    href={article.pdf}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-primary/90"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    Read Article
-                  </a>
-                  
-                  <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                    pp. {article.pages}
-                  </span>
-                </div>
-              </div>
-            </article>
-          ))}
+              <ExternalLink className="h-4 w-4" />
+              Read Article
+            </a>
+            
+            <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
+              pp. {article.pages}
+            </span>
+          </div>
         </div>
-      </section>
+      </article>
+    ))}
+  </div>
+</section>
     </>
   );
 }

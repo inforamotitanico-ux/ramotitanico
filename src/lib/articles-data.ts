@@ -3,6 +3,7 @@ import sketchingDissentPdf from "@/assets/articles/SKETCHING DISSENT.pdf";
 import comparativeStudyPdf from "@/assets/articles/COMPARATIVE STUDY OF HUMAN AND MACHINE TRANSLATIONS.pdf?url";
 import hydrosocialCyclePdf from "@/assets/articles/The Hydrosocial Cycle Water as Culture.pdf?url";
 import mynameisjahan from "@/assets/articles/My Name Is Jahan” Queer Time, Anti-Futurity, and the Refusal of Reproductive Temporality in Saad T. Farooqi’s White World.pdf??url";
+import theidology from "@/assets/articles/The Ideology of Standard English and Cultural Alienation in Pakistan.pdf";
 // Article Interface
 export interface Article {
   title: string;
@@ -49,6 +50,12 @@ export const articles: Article[] = [
     authors: "J. Mudassar", 
     pages: "48–58",
     pdf: mynameisjahan
+  },
+  { 
+    title: "The Ideology of Standard English and Cultural Alienation in Pakistan: A Content Analysis of English Textbooks in Non-Elite Private Primary Schools in Khyber Pakhtunkhwa", 
+    authors: "K. Bilal, A. Lubna, I. Romaisa",
+    pages: "59–73",
+    pdf: theidology
   }
   
 ];

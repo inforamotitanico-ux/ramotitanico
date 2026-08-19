@@ -138,7 +138,7 @@ function ArchivesPage() {
 
                       <div className="min-w-0 flex-1">
                         <h3 className="font-display text-xl font-semibold leading-snug text-primary transition-colors group-hover:text-primary/80">
-                          {a.title}
+                          {a.title.toUpperCase()}
                         </h3>
 
                         <p className="mt-2 text-sm text-muted-foreground">
