@@ -19,7 +19,7 @@ export const Route = createFileRoute("/about-the-journal")({
 
 const facts = [
   { icon: Globe2, label: "Access", value: "Open Access" },
-  { icon: CalendarClock, label: "Frequency", value: "Quarterly / Four issues per year" },
+  { icon: CalendarClock, label: "Biannual", value: "Twice per year" },
   { icon: ShieldCheck, label: "Review", value: "Double-blind peer review" },
   { icon: BookOpen, label: "Publisher", value: "Ramotitanico – Unipessoal LDA, Portugal" },
   { icon: Languages, label: "Language", value: "English" },
