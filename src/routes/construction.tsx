@@ -79,8 +79,7 @@ function ConstructionPage() {
             Build Belonging
           </>
         }
-        description="Ramotitanico buys, sells, and leases real estate, and runs civil construction — including mini-markets and restaurants — turning rent paid into equity built for the same families our other services already serve. Property, vehicles, and the buildings in between."
-      />
+description="Ramotitanico is a diversified real estate and construction company. We buy, sell, and lease residential and commercial properties, and execute civil construction projects — including mini-markets, restaurants, and mixed-use buildings. Our unique model turns rental payments into long-term equity for the families we serve, ensuring that property ownership and financial growth go hand in hand."      />
 
       {/* Core Services Section */}
       <section className="container-page py-20">

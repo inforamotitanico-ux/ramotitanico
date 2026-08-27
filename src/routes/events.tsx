@@ -153,7 +153,7 @@ function EventsPage() {
                 Flagship · 27–28 June 2026 · Braga
               </span>
               <h2 className="mt-5 font-display text-3xl font-semibold leading-tight sm:text-4xl">
-                Humanities Beyond Borders: Culture, Identity and Global Dialogues
+                1st International Conference on Humanities Beyond Borders: Culture, Identity and Global Dialogues
               </h2>
               <p className="mt-4 text-primary-foreground/80 text-justify">
                 Two days of plenary lectures, parallel panels, doctoral colloquia, and policy

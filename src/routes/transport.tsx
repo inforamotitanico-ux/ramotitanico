@@ -106,7 +106,7 @@ function TransportPage() {
                     {s.desc}
                   </p>
                   {(s as any).details && (
-                    <p className="mt-2 text-xs font-medium uppercase tracking-wider text-accent">
+                    <p className="mt-2 text-xs font-medium uppercase tracking-wider ">
                       {(s as any).details}
                     </p>
                   )}
