@@ -34,7 +34,7 @@ function GalleryPage() {
     <>
       <PageHero
         eyebrow="Gallery"
-        title="Moments from Our Programmes."
+        title="Moments from Our Programmes"
         description="A visual record of conferences, workshops, cultural exchanges, and certificate ceremonies — organised into folders."
       />
 

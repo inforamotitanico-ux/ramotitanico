@@ -34,14 +34,14 @@ function AboutJournalPage() {
         backTo="/journal"
         backLabel="Journal Services"
         eyebrow="About the Journal"
-        title="Academia Humanities Review."
+        title="Academia Humanities Review"
         description="An open-access, peer-reviewed journal dedicated to advancing scholarship in the humanities — publishing original research, critical essays, and interdisciplinary studies."
       />
 
       <section className="container-page py-20">
         <SectionTitle
           eyebrow="Overview"
-          title="A Platform for Humanities Scholarship."
+          title="A Platform for Humanities Scholarship"
           description="The Academia Humanities Review provides a rigorous, open-access forum for researchers across literature, linguistics, cultural studies, translation, and education — fostering dialogue between disciplines and across traditions."
           className="[&_p]:text-justify"
         />

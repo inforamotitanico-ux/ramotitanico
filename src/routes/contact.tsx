@@ -75,7 +75,7 @@ setSubmitting(false);
     <>
       <PageHero
         eyebrow="Contact"
-        title="We Would be Glad to Hear from You."
+        title="We Would be Glad to Hear from You"
         description="For partnerships, conference enquiries, consultancy, or media — reach our Braga office through the channels below."
       />
 

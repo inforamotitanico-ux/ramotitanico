@@ -54,7 +54,7 @@ function CallForPapersPage() {
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
           <SectionTitle
             eyebrow="Suggested Themes"
-            title="Topics We're Especially Interested In."
+            title="Topics We're Especially Interested In"
             description="Submissions outside these themes are also welcome, provided they fall within the journal's aims and scope."className="[&_p]:text-justify"
           />
           <div className="rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-card)]">

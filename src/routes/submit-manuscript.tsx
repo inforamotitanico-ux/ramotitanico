@@ -336,7 +336,7 @@ const formData = parsed.data as any;
           <div>
             <SectionTitle
               eyebrow="Before You Send"
-              title="Submission Requirements."
+              title="Submission Requirements"
               description="Manuscripts failing the bellow given requirments shall be returned for revision before aditorial screening submission"
               className="[&_p]:text-justify"
             />

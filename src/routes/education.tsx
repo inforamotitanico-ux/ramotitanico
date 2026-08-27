@@ -70,7 +70,7 @@ function EducationPage() {
     <>
       <PageHero
         eyebrow="Education Services"
-        title="Strengthening Education Systems from Classroom to Policy."
+        title="Strengthening Education Systems from Classroom to Policy"
         description="Our education specialists partner with institutions, governments, and educators to design programmes that raise standards, widen access, and build lasting capacity."
       />
 <section className="bg-surface py-20 sm:py-28">
@@ -78,7 +78,7 @@ function EducationPage() {
           <SectionTitle
             align="center"
             eyebrow="What We Do"
-            title="Services that Strengthen Institutions and Scholars."
+            title="Services that Strengthen Institutions and Scholars"
             description="Six interconnected practice areas, delivered with academic rigour and operational discipline."
           />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

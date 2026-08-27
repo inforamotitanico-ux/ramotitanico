@@ -65,7 +65,7 @@ function AboutPage() {
     
       <PageHero
   eyebrow="About Ramotitanico"
-  title="Education, Construction, Transport, and Agriculture — Built from Braga."
+  title="Education, Construction, Transport, and Agriculture — Built from Braga"
   description={
     <span style={{ textAlign: 'justify', display: 'block' }}>
       We are a multidisciplinary organisation operating across four sectors, connecting scholars, building infrastructure, enabling mobility, and cultivating sustainable agriculture from our base in Portugal.
@@ -78,7 +78,7 @@ function AboutPage() {
           <div className="space-y-5 text-foreground/85">
             <SectionTitle
               eyebrow="Who We Are"
-              title="A Portugal-Based Multidisciplinary Organisation."
+              title="A Portugal-Based Multidisciplinary Organisation"
             />
             <p className="text-lg leading-relaxed text-justify">
               Ramotitanico operates from Braga across four interconnected sectors: education,
@@ -144,7 +144,7 @@ function AboutPage() {
         <SectionTitle
           align="center"
           eyebrow="Core Values"
-          title="The Principles that Guide Every Programe."
+          title="The Principles that Guide Every Programe"
         />
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {values.map((v) => (
@@ -170,7 +170,7 @@ function AboutPage() {
             Global Impact
           </span>
           <h2 className="mt-5 font-display text-3xl font-semibold sm:text-4xl">
-            From a Braga Office to Four Sectors, Around the Globe.
+            From a Braga Office to Four Sectors, Around the Globe
           </h2>
           <div className="mt-6 space-y-4 text-primary-foreground/80 leading-relaxed">
             <p className="text-justify">

@@ -140,7 +140,7 @@ function EventsPage() {
     <>
       <PageHero
         eyebrow="Events & Conferences"
-        title="A Worldwide Programme of Scholarly Gatherings."
+        title="A Worldwide Programme of Scholarly Gatherings"
         description="From flagship international conferences in Braga to regional symposia and executive seminars across our partner network."
       />
 
@@ -230,8 +230,7 @@ function EventsPage() {
                   </DialogTrigger>
                   <DialogContent className="w-[95vw] max-w-md sm:max-w-lg md:max-w-xl mx-auto p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
-                      <DialogTitle className="text-lg sm:text-xl">Call for Papers — Key Dates</DialogTitle>
-                      <DialogDescription className="text-sm sm:text-base">
+                                            <DialogDescription className="text-sm sm:text-base">
                         Important submission deadlines for the 2nd International Conference on Crisis and Humanity.
                       </DialogDescription>
                     </DialogHeader>
@@ -281,7 +280,7 @@ function EventsPage() {
         <div className="container-page grid gap-8 sm:gap-12 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <SectionTitle
-              title="Submit Your Contribution."
+              title="Submit Your Contribution"
               description="We welcome original research, case studies, policy analyses, and theoretical contributions across education, research methodology, innovation studies, and sustainable development."
             />
             <div className="mt-6">
@@ -397,7 +396,7 @@ function EventsPage() {
 
       {/* Timeline */}
       <section id="timeline" className="container-page py-12 sm:py-20">
-        <SectionTitle align="center" eyebrow="Conference Timeline" title="Key Dates for 2026." />
+        <SectionTitle align="center" eyebrow="Conference Timeline" title="Key Dates for 2026" />
         <div className="mx-auto mt-10 sm:mt-14 max-w-3xl">
           <ol className="relative border-l-2 border-accent/40 pl-5 sm:pl-6">
             {timeline.map((t) => (
@@ -419,7 +418,7 @@ function EventsPage() {
       {/* Benefits */}
       <section className="bg-surface py-12 sm:py-20">
         <div className="container-page">
-          <SectionTitle align="center" eyebrow="Why Attend" title="What Participants Gain." />
+          <SectionTitle align="center" eyebrow="Why Attend" title="What Participants Gain" />
           <div className="mt-10 sm:mt-14 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {benefits.map((b) => (
               <div
