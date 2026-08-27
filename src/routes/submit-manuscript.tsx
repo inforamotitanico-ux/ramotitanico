@@ -327,7 +327,7 @@ const formData = parsed.data as any;
         backTo="/journal"
         backLabel="Journal Services"
         eyebrow="Submit Manuscript"
-        title="Ready to Submit? Here's How."
+        title="Ready to Submit? Here's How"
         description="Complete the submission form below, then send your manuscript file to our editorial office."
       />
 
