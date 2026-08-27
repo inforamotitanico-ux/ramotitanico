@@ -240,7 +240,7 @@ function HomePage() {
           <SectionTitle
             align="center"
             eyebrow="What We Do"
-            title="Services that Strengthen Institutions and Scholars."
+            title="Services that Strengthen Institutions and Scholars"
             description="Six interconnected practice areas, delivered with academic rigour and operational discipline."
           />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
