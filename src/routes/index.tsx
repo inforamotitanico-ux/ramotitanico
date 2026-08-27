@@ -361,7 +361,7 @@ function HomePage() {
         <SectionTitle
           align="center"
           eyebrow="Voices from Our Network"
-          title="Trusted by Scholars Across Continents."
+          title="Trusted by Scholars Across Continents"
         />
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {testimonials.map((t) => (
