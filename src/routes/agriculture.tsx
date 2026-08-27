@@ -35,7 +35,7 @@ const services = [
     icon: Beef,
     title: "Afro-Asian-Halal Mobile Butchery",
     desc: "A taste of home is not a luxury, it is identity. Our mobile butchery brings the cuts that Portuguese supermarkets quietly retired: hard chicken, goat, mutton, beef offals, oxtail, cow feet, tripe, and heads — halal-certified, ethically sourced, and delivered to the neighbourhoods that ask for them.",
-    details: "Ethical sourcing · refrigerated transport · trusted handling · mobile route serving Braga, Porto, and the Minho corridor",
+    details: "Ethical sourcing, refrigerated transport, trusted handling · mobile route serving Braga, Porto, and the Minho corridor",
   },
   {
     icon: Truck,
@@ -81,9 +81,9 @@ function AgriculturePage() {
         eyebrow="Food Sovereignty & Agriculture"
         title={
           <>
-            A Taste of Home
+            A Taste of Home:
             <br />
-            A Culture Resourced
+            Culture Resourced
           </>
         }
         description="Ramotitanico's mobile butchery brings halal-certified, culturally appropriate meat to the Afro-Asian-Lusophone diaspora across Braga, Porto, and the Minho corridor. We also provide agribusiness consulting, sustainable farming advisory, and agritech implementation."
@@ -110,7 +110,7 @@ function AgriculturePage() {
                   <h3 className="font-display text-xl font-semibold text-primary">{s.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
                   {(s as any).details && (
-                    <p className="mt-2 text-xs font-medium uppercase tracking-wider text-accent">
+                    <p className="mt-2 text-xs font-medium uppercase tracking-wider">
                       {(s as any).details}
                     </p>
                   )}
@@ -148,7 +148,7 @@ function AgriculturePage() {
       <section className="container-page py-20">
         <SectionTitle
           eyebrow="Study. Build. Belong."
-          title="RISE Europe: Agriculture & Food Security Research"
+          title="Rise Europe: Agriculture & Food Security Research"
           description="For international students, researchers, and migrant entrepreneurs. Our quarterly conferences and research forums connect agriculture, food security, and sustainable development with real-world practice."
         />
         <div className="mt-12 grid gap-8 md:grid-cols-3">

@@ -86,7 +86,7 @@ function ConstructionPage() {
       <section className="container-page py-20">
         <SectionTitle
           eyebrow="What We Deliver"
-          title="Property, Vehicles, and the Buildings in Between"
+          title="Property, Vehicles, and the Buildings"
           description="Our construction and real estate services are built around one idea: helping families build lives, preserve identity, create opportunity, and belong. Every building we construct is a small act of cultural translation."
         />
         <div className="mt-14 grid gap-6 md:grid-cols-2">
@@ -138,8 +138,8 @@ function ConstructionPage() {
       <section className="container-page py-20">
         <SectionTitle
           eyebrow="Study. Build. Belong."
-          title="RISE Europe: Settlement & Enterprise"
-          description="For international students and migrant entrepreneurs. RISE Europe provides settlement support — housing, bank accounts, tax registration, and community — so students can focus on building businesses while they study."
+          title="Rise Europe: Settlement & Enterprise"
+          description="For international students and migrant entrepreneurs. Rise Europe provides settlement support — housing, bank accounts, tax registration, and community — so students can focus on building businesses while they study."
         />
         <div className="mt-12 grid gap-8 md:grid-cols-3">
           <div className="rounded-2xl border border-border bg-card p-8 text-center shadow-[var(--shadow-card)]">
@@ -184,7 +184,7 @@ function ConstructionPage() {
             Our Values
           </span>
           <h2 className="mt-5 font-display text-3xl font-semibold text-primary sm:text-4xl">
-            Inclusion. Cultural Understanding. Dignity. Dialogue. Sustainable Development.
+            Inclusion, Cultural Understanding, Dignity, Dialogue, and Sustainable Development
           </h2>
           <p className="mt-6 leading-relaxed text-foreground/80">
             These five values guide every building we construct, every home we help a family purchase, 

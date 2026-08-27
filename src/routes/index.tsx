@@ -173,11 +173,11 @@ function HomePage() {
               Braga · Portugal · Worldwide
             </span>
             <h1 className="mt-6 font-display text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl lg:text-5xl">
-              Empowering Communities Through Education, Transport, Agriculture & Construction
+              Harnessing Communities Through Education, Transport, Agriculture & Construction
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-primary-foreground/85 sm:text-lg">
               Ramotitanico is a Portugal-based multidisciplinary organisation operating across four
-              interconnected sectors. We advance education and research through global academic
+              interconnected sectors. We harnessing education and research through global academic
               partnerships, deliver quality construction projects, provide flexible peer-to-peer car
               rental services, and support sustainable agricultural development — creating meaningful
               impact from Braga to the world.
@@ -206,15 +206,15 @@ function HomePage() {
           <div>
             <SectionTitle
   eyebrow="About Ramotitanico"
-  title="Four Sectors, One Organisation Rooted in Braga."
-  description="From our headquarters in Braga, we operate across education, construction, transport, and agriculture — each sector contributing to Portugal's development and our global mission. We connect scholars across continents, build lasting infrastructure, put people in motion, and cultivate sustainable food systems."
+  title="One Organization, Multiple Sectors"
+  description="The headquarters in Braga operates across four major domains including: Education, Construction, Transportation and Agriculture- each sector contributing to Portugal’s sociocultural development. We connect scholars across continents, design latest infrastructure, mobilise people and harvest sustainable food systems."
   className="[&_p]:text-justify"
 />
             <Link
               to="/about"
               className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all"
             >
-              Read our story <ArrowRight className="h-4 w-4" />
+              Read More <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="relative">

@@ -82,6 +82,26 @@ const timeline = [
     icon: CalendarClock,
   },
 ];
+const timeline2 = [
+  {
+    date: "5 September 2026",
+    title: "Abstract Submission Deadline",
+    desc: "Last date to submit your abstract for review and consideration by the scientific committee.",
+    icon: CalendarClock,
+  },
+  {
+    date: "8 September 2026",
+    title: "Notification of Acceptance",
+    desc: "Authors will be notified about the acceptance status of their submitted abstracts.",
+    icon: CalendarCheck,
+  },
+  {
+    date: "15 September 2026",
+    title: "Registration Deadline",
+    desc: "Last date for authors and participants to complete their registration for the conference.",
+    icon: Award,
+  },
+];
 
 const benefits = [
   {
@@ -144,12 +164,12 @@ function EventsPage() {
               <div className="mt-7 flex flex-wrap gap-3">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <button
+                    {/* <button
                       type="button"
                       className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground hover:brightness-95"
                     >
-                      Call for Papers
-                    </button>
+                      Call for Abstract
+                    </button> */}
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
@@ -207,6 +227,84 @@ function EventsPage() {
           </div>
         </div>
       </section>
+      {/* second call for papers */}
+      
+<section className="container-page py-20">
+  <div className="overflow-hidden rounded-3xl border border-border bg-primary text-primary-foreground shadow-[var(--shadow-elevated)]">
+    <div className="grid gap-0 lg:grid-cols-[1.3fr_1fr]">
+      <div className="p-10 sm:p-14">
+        <span className="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+          Flagship · 26–27 September 2026 · Braga
+        </span>
+        <h2 className="mt-5 font-display text-3xl font-semibold leading-tight sm:text-4xl">
+          2nd International Conference on Crisis and Humanity: Paradigm Shift in Language and 
+          Literature in the 21st Century
+        </h2>
+        <p className="mt-4 text-primary-foreground/80 text-justify">
+          This second international conference brings together distinguished scholars, 
+          linguists, literary critics, and researchers from around the world to explore the 
+          transformative role of language and literature in addressing contemporary crises. 
+          Through keynote addresses, parallel paper sessions, and interactive roundtables, 
+          the conference seeks to redefine disciplinary boundaries and foster a paradigm 
+          shift in the humanities for the 21st century.
+        </p>
+        <div className="mt-7 flex flex-wrap gap-3">
+          <Dialog>
+            <DialogTrigger asChild>
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground hover:brightness-95"
+              >
+                Call for Abstract
+              </button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Call for Papers — Key Dates (Crisis and Humanity Conference)</DialogTitle>
+                <DialogDescription>
+                  Important submission deadlines for the 2nd International Conference on Crisis and Humanity.
+                </DialogDescription>
+              </DialogHeader>
+              <ul className="grid gap-4">
+                {timeline2.map((t) => (
+                  <li key={t.title} className="flex items-start gap-3">
+                    <t.icon className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+                    <div>
+                      <p className="font-semibold text-primary">{t.date}</p>
+                      <p className="text-sm text-muted-foreground">{t.title}</p>
+                      <p className="text-xs text-muted-foreground/70">{t.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </DialogContent>
+          </Dialog>
+          <a
+            href="#timeline"
+            className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground hover:brightness-95"
+          >
+            View Timeline
+          </a>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-px bg-primary-foreground/15">
+        {[
+          { k: "70+", v: "Participants" },
+          { k: "6+", v: "Countries" },
+          { k: "50+", v: "Papers" },
+          { k: "8", v: "Plenaries" },
+        ].map((s) => (
+          <div key={s.v} className="flex flex-col items-center justify-center bg-primary p-8">
+            <span className="font-display text-3xl font-semibold text-accent">{s.k}</span>
+            <span className="mt-2 text-xs uppercase tracking-wider text-primary-foreground/70">
+              {s.v}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Call for papers */}
       <section id="call-for-papers" className="bg-surface py-20">

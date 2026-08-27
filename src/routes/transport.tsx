@@ -198,7 +198,7 @@ function TransportPage() {
       <section className="container-page py-20">
         <SectionTitle
           eyebrow="Study. Build. Belong."
-          title="RISE Europe: Integrated Study + Enterprise"
+          title="Rise Europe: Integrated Study + Enterprise"
           description="For international students and migrant entrepreneurs. Graduate with a degree, a business, and a pathway to belonging — all while using our mobility platform."
         />
         <div className="mt-12 grid gap-8 md:grid-cols-3">

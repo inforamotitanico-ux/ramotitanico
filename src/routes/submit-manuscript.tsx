@@ -337,7 +337,7 @@ const formData = parsed.data as any;
             <SectionTitle
               eyebrow="Before You Send"
               title="Submission Requirements."
-              description="Manuscripts that don't meet these requirements are returned for revision before entering editorial screening."
+              description="Manuscripts failing the bellow given requirments shall be returned for revision before aditorial screening submission"
               className="[&_p]:text-justify"
             />
             <ul className="mt-8 space-y-3">

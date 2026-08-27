@@ -114,7 +114,7 @@ function AboutPage() {
               </span>
             </span>
             <h3 className="mt-4 font-display text-2xl font-semibold text-primary">
-              A Connected Scholarly World that Serves Society.
+              A Scholarly Community that Serves Humanity
             </h3>
             <p className="mt-3 leading-relaxed text-foreground/80 text-justify">
               We envision an international academic ecosystem in which knowledge moves freely across
@@ -129,7 +129,7 @@ function AboutPage() {
               </span>
             </span>
             <h3 className="mt-4 font-display text-2xl font-semibold text-primary">
-              Build Systems — Academic, Physical, and Social — that Create Lasting Value.
+              Build Valuable Academic, Physical, and Social System
             </h3>
             <p className="mt-3 leading-relaxed text-foreground/80 text-justify">
               We design and operate conferences, publications, training programmes, construction
