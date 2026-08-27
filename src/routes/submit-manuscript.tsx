@@ -332,259 +332,261 @@ const formData = parsed.data as any;
       />
 
       <section className="container-page py-20">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr]">
-          <div>
-            <SectionTitle
-              eyebrow="Before You Send"
-              title="Submission Requirements"
-              description="Manuscripts failing the bellow given requirments shall be returned for revision before aditorial screening submission"
-              className="[&_p]:text-justify"
-            />
-            <ul className="mt-8 space-y-3">
-              {requirements.map((r) => (
-                <li key={r} className="flex items-start gap-3 text-sm text-foreground/85">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
-                  {r}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 text-sm text-muted-foreground">
-              Full formatting and structure requirements are detailed in the{" "}
-              <Link to="/author-guidelines" className="font-medium text-primary underline underline-offset-4 hover:text-primary/80">
-                Author Guidelines
-              </Link>
-              .
-            </p>
+  <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr]">
+    {/* Left Column - Requirements & Email Section */}
+    <div className="order-2 lg:order-1">
+      <SectionTitle
+        eyebrow="Before You Send"
+        title="Submission Requirements"
+        description="Manuscripts failing the bellow given requirments shall be returned for revision before aditorial screening submission"
+        className="[&_p]:text-justify"
+      />
+      <ul className="mt-8 space-y-3">
+        {requirements.map((r) => (
+          <li key={r} className="flex items-start gap-3 text-sm text-foreground/85">
+            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
+            {r}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-8 text-sm text-muted-foreground">
+        Full formatting and structure requirements are detailed in the{" "}
+        <Link to="/author-guidelines" className="font-medium text-primary underline underline-offset-4 hover:text-primary/80">
+          Author Guidelines
+        </Link>
+        .
+      </p>
 
-            <div className="mt-10 rounded-2xl border border-border bg-gradient-to-br from-primary/5 to-transparent p-6 shadow-[var(--shadow-card)]">
-              <span className="grid h-12 w-12 place-items-center rounded-xl bg-primary text-primary-foreground">
-                <Mail className="h-6 w-6" />
-              </span>
-              <h3 className="mt-4 font-display text-lg font-semibold text-primary">Submit Your File</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                After completing the form, you'll need to email your manuscript file directly to us.
-              </p>
-              <div className="mt-4 flex flex-wrap items-center gap-3">
-                <a
-                  href="mailto:admin@ramotitanico.com?subject=Manuscript%20Submission"
-                  className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
-                >
-                  <Mail className="h-4 w-4" />
-                  admin@ramotitanico.com
-                </a>
-                <button
-                  onClick={handleCopyEmail}
-                  className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="h-4 w-4 text-emerald-500" />
-                      Copied!
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-4 w-4" />
-                      Copy Email
-                    </>
-                  )}
-                </button>
+      <div className="mt-10 rounded-2xl border border-border bg-gradient-to-br from-primary/5 to-transparent p-6 shadow-[var(--shadow-card)]">
+        <span className="grid h-12 w-12 place-items-center rounded-xl bg-primary text-primary-foreground">
+          <Mail className="h-6 w-6" />
+        </span>
+        <h3 className="mt-4 font-display text-lg font-semibold text-primary">Submit Your File</h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          After completing the form, you'll need to email your manuscript file directly to us.
+        </p>
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <a
+            href="mailto:admin@ramotitanico.com?subject=Manuscript%20Submission"
+            className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
+          >
+            <Mail className="h-4 w-4" />
+            admin@ramotitanico.com
+          </a>
+          <button
+            onClick={handleCopyEmail}
+            className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground"
+          >
+            {copied ? (
+              <>
+                <Check className="h-4 w-4 text-emerald-500" />
+                Copied!
+              </>
+            ) : (
+              <>
+                <Copy className="h-4 w-4" />
+                Copy Email
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {/* Right Column - Form */}
+    <form
+      onSubmit={onSubmit}
+      className="order-1 lg:order-2 rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-card)]"
+    >
+      <div className="flex items-center gap-3 border-b border-border pb-6">
+        <FileText className="h-6 w-6 text-primary" />
+        <h3 className="font-display text-xl font-semibold text-primary">New Submission</h3>
+        <span className="ml-auto rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Step 1 of 2</span>
+      </div>
+
+      {/* Step 1: Author Information */}
+      <div className="mt-6">
+        <div className="flex items-center gap-2">
+          <User className="h-4 w-4 text-primary" />
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Author Information</h4>
+        </div>
+        
+        {/* Number of Authors Dropdown */}
+        <div className="mt-4">
+          <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Number of Authors <span className="text-red-500">*</span>
+          </label>
+          <div className="relative mt-2">
+            <Users className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <select
+              name="numAuthors"
+              value={numAuthors}
+              onChange={(e) => setNumAuthors(parseInt(e.target.value, 10))}
+              className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none"
+            >
+              {[1, 2, 3, 4, 5].map((num) => (
+                <option key={num} value={num}>
+                  {num} {num === 1 ? 'Author' : 'Authors'}
+                </option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+              <svg className="h-4 w-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Corresponding Author */}
+        <div className="mt-4 rounded-lg border border-primary/20 bg-primary/5 p-4">
+          <h5 className="text-sm font-semibold text-primary mb-3">Corresponding Author</h5>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Full Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                name="name"
+                type="text"
+                maxLength={200}
+                placeholder="Dr. Jane Smith"
+                className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Email <span className="text-red-500">*</span>
+              </label>
+              <div className="relative mt-2">
+                <AtSign className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <input
+                  name="email"
+                  type="email"
+                  maxLength={200}
+                  placeholder="jane.smith@university.edu"
+                  className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                />
               </div>
             </div>
           </div>
-
-          <form
-            onSubmit={onSubmit}
-            className="rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-card)]"
-          >
-            <div className="flex items-center gap-3 border-b border-border pb-6">
-              <FileText className="h-6 w-6 text-primary" />
-              <h3 className="font-display text-xl font-semibold text-primary">New Submission</h3>
-              <span className="ml-auto rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">Step 1 of 2</span>
-            </div>
-
-            {/* Step 1: Author Information */}
-            <div className="mt-6">
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4 text-primary" />
-                <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Author Information</h4>
-              </div>
-              
-              {/* Number of Authors Dropdown */}
-              <div className="mt-4">
-                <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Number of Authors <span className="text-red-500">*</span>
-                </label>
-                <div className="relative mt-2">
-                  <Users className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <select
-                    name="numAuthors"
-                    value={numAuthors}
-                    onChange={(e) => setNumAuthors(parseInt(e.target.value, 10))}
-                    className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none"
-                  >
-                    {[1, 2, 3, 4, 5].map((num) => (
-                      <option key={num} value={num}>
-                        {num} {num === 1 ? 'Author' : 'Authors'}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                    <svg className="h-4 w-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
-              {/* Corresponding Author */}
-              <div className="mt-4 rounded-lg border border-primary/20 bg-primary/5 p-4">
-                <h5 className="text-sm font-semibold text-primary mb-3">Corresponding Author</h5>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      Full Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      name="name"
-                      type="text"
-                      maxLength={200}
-                      placeholder="Dr. Jane Smith"
-                      className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      Email <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative mt-2">
-                      <AtSign className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                      <input
-                        name="email"
-                        type="email"
-                        maxLength={200}
-                        placeholder="jane.smith@university.edu"
-                        className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Co-authors */}
-              {numAuthors > 1 && (
-                <div className="mt-4">
-                  <h5 className="text-sm font-semibold text-muted-foreground mb-3">Co-authors</h5>
-                  <div className="space-y-4">
-                    {renderAuthorFields()}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Step 2: Article Information */}
-            <div className="mt-8 border-t border-border pt-6">
-              <div className="mt-4 grid gap-5 sm:grid-cols-2">
-                <div className="sm:col-span-2">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Title <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    name="title"
-                    rows={2}
-                    maxLength={300}
-                    placeholder="Enter the full title of your manuscript"
-                    className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Subtitle (optional)</label>
-                  <textarea
-                    name="subtitle"
-                    rows={2}
-                    maxLength={300}
-                    placeholder="Enter a subtitle if applicable"
-                    className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Abstract <span className="text-red-500">*</span>
-                  </label>
-                  <p className="mt-0.5 text-xs text-muted-foreground">150–250 words</p>
-                  <textarea
-                    name="abstract"
-                    rows={5}
-                    maxLength={3000}
-                    placeholder="Provide a structured abstract summarizing your research..."
-                    className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Keywords <span className="text-red-500">*</span>
-                  </label>
-                  <p className="mt-0.5 text-xs text-muted-foreground">Minimum of five, title case, comma separated</p>
-                  <div className="relative mt-2">
-                    <Key className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                    <input
-                      name="keywords"
-                      type="text"
-                      placeholder="e.g., Education, Sustainability, Innovation"
-                      className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Step 3: Author Statements */}
-            <div className="mt-8 border-t border-border pt-6">
-              <div className="flex items-center gap-2">
-                <AlertCircle className="h-4 w-4 text-primary" />
-                <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Author Statements</h4>
-              </div>
-              <div className="mt-4 space-y-4">
-                {statements.map((s) => (
-                  <YesNoQuestion key={s.name} name={s.name} label={s.label} />
-                ))}
-                {acknowledgements.map((a) => (
-                  <YesNoQuestion 
-                    key={a.name} 
-                    name={a.name} 
-                    label={a.label} 
-                    linkText={a.linkText}
-                    popupContent={a.popupContent}
-                    onOpenPopup={handleOpenStatementPopup}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-8 flex flex-col-reverse gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-xs text-muted-foreground">
-                <span className="text-red-500">*</span> Required fields
-              </p>
-              <button
-                type="submit"
-                disabled={submitting}
-                className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md disabled:opacity-60 sm:w-auto"
-              >
-                {submitting ? (
-                  <>
-                    <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
-                    Processing…
-                  </>
-                ) : (
-                  "Submit Details"
-                )}
-              </button>
-            </div>
-          </form>
         </div>
-      </section>
+
+        {/* Co-authors */}
+        {numAuthors > 1 && (
+          <div className="mt-4">
+            <h5 className="text-sm font-semibold text-muted-foreground mb-3">Co-authors</h5>
+            <div className="space-y-4">
+              {renderAuthorFields()}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Step 2: Article Information */}
+      <div className="mt-8 border-t border-border pt-6">
+        <div className="mt-4 grid gap-5 sm:grid-cols-2">
+          <div className="sm:col-span-2">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Title <span className="text-red-500">*</span>
+            </label>
+            <textarea
+              name="title"
+              rows={2}
+              maxLength={300}
+              placeholder="Enter the full title of your manuscript"
+              className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Subtitle (optional)</label>
+            <textarea
+              name="subtitle"
+              rows={2}
+              maxLength={300}
+              placeholder="Enter a subtitle if applicable"
+              className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Abstract <span className="text-red-500">*</span>
+            </label>
+            <p className="mt-0.5 text-xs text-muted-foreground">150–250 words</p>
+            <textarea
+              name="abstract"
+              rows={5}
+              maxLength={3000}
+              placeholder="Provide a structured abstract summarizing your research..."
+              className="mt-2 w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Keywords <span className="text-red-500">*</span>
+            </label>
+            <p className="mt-0.5 text-xs text-muted-foreground">Minimum of five, title case, comma separated</p>
+            <div className="relative mt-2">
+              <Key className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                name="keywords"
+                type="text"
+                placeholder="e.g., Education, Sustainability, Innovation"
+                className="w-full rounded-lg border border-input bg-background py-2.5 pl-10 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Step 3: Author Statements */}
+      <div className="mt-8 border-t border-border pt-6">
+        <div className="flex items-center gap-2">
+          <AlertCircle className="h-4 w-4 text-primary" />
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Author Statements</h4>
+        </div>
+        <div className="mt-4 space-y-4">
+          {statements.map((s) => (
+            <YesNoQuestion key={s.name} name={s.name} label={s.label} />
+          ))}
+          {acknowledgements.map((a) => (
+            <YesNoQuestion 
+              key={a.name} 
+              name={a.name} 
+              label={a.label} 
+              linkText={a.linkText}
+              popupContent={a.popupContent}
+              onOpenPopup={handleOpenStatementPopup}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-8 flex flex-col-reverse gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-xs text-muted-foreground">
+          <span className="text-red-500">*</span> Required fields
+        </p>
+        <button
+          type="submit"
+          disabled={submitting}
+          className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md disabled:opacity-60 sm:w-auto"
+        >
+          {submitting ? (
+            <>
+              <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Processing…
+            </>
+          ) : (
+            "Submit Details"
+          )}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
 
       {/* Popup Modal for Statements */}
       {showStatementPopup && currentPopupContent && (
