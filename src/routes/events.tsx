@@ -260,7 +260,6 @@ function EventsPage() {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Call for Papers — Key Dates (Crisis and Humanity Conference)</DialogTitle>
                 <DialogDescription>
                   Important submission deadlines for the 2nd International Conference on Crisis and Humanity.
                 </DialogDescription>
@@ -311,7 +310,6 @@ function EventsPage() {
         <div className="container-page grid gap-12 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <SectionTitle
-              eyebrow="Call for Papers"
               title="Submit Your Contribution."
               description="We welcome original research, case studies, policy analyses, and theoretical contributions across education, research methodology, innovation studies, and sustainable development."
             />
