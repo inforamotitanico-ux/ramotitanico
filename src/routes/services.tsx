@@ -116,7 +116,7 @@ function ServicesPage() {
         <SectionTitle
           align="center"
           eyebrow="Business Areas"
-          title="Choose Your Sector."
+          title="Choose Your Sector"
           description="Each sector has its own dedicated team and service page. Explore the area most relevant to you."
         />
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -145,7 +145,7 @@ function ServicesPage() {
           <SectionTitle
             align="center"
             eyebrow="Education"
-            title="Academic & Education Services in Detail."
+            title="Academic & Education Services in Detail"
             description="Six interconnected practice areas, delivered with academic rigour and operational discipline."
           />
           <div className="mt-14 grid gap-6 md:grid-cols-2">
