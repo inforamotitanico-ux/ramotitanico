@@ -273,7 +273,7 @@ function HomePage() {
         <SectionTitle
           align="center"
           eyebrow="Our Sectors"
-          title="Beyond Academia — Three More Pillars of Growth."
+          title="Beyond Academia — Three More Pillars of Growth"
           description="Alongside education, Ramotitanico drives sustainable development through construction, a peer-to-peer car rental marketplace, and agricultural consultancy."
         />
         <div className="mt-14 grid gap-8 lg:grid-cols-3">
