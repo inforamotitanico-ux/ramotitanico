@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionTitle } from "@/components/ui/section-title";
+import founderImage from "@/assets/people/Dr_Rasib_mahmood_Director_and_founder_of_Ramotitanico_portugal.jpeg";
 
 export const Route = createFileRoute("/team")({
   head: () => ({
@@ -21,13 +22,15 @@ interface Person {
   name: string;
   role: string;
   bio: string;
+  image?: string; // Optional image URL
 }
 
 const founder: Person = {
   initials: "RM",
   name: "Dr. Rasib Mahmood",
-  role: "Founder, Honorary CEO & Managing Director",
-  bio: "Leads the organization's strategic direction, international partnerships, and editorial programme. Two decades of experience across European and Asian higher education institutions. Committed to fostering interdisciplinary dialogue, advancing open-access scholarship, and creating meaningful opportunities for researchers to contribute to global knowledge production."
+  role: " Honorary CEO & Managing Director",
+  bio: "Leads the organization's strategic direction, international partnerships, and editorial programme. Two decades of experience across European and Asian higher education institutions. Committed to fostering interdisciplinary dialogue, advancing open-access scholarship, and creating meaningful opportunities for researchers to contribute to global knowledge production.",
+  image: founderImage // Use the imported image
 };
 
 const advisory: Person[] = [
@@ -55,11 +58,28 @@ function Card({ p, featured = false }: { p: Person; featured?: boolean }) {
     <article
       className={`rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elevated)] ${featured ? "md:p-8" : ""}`}
     >
-      <div
-        className={`grid place-items-center rounded-xl bg-primary text-primary-foreground font-display font-semibold ${featured ? "h-20 w-20 text-2xl" : "h-16 w-16 text-xl"}`}
-      >
-        {p.initials}
-      </div>
+      {p.image && featured ? (
+        // Featured image - larger for founder
+        <img
+          src={p.image}
+          alt={p.name}
+          className="h-24 w-24 rounded-full object-cover border-4 border-primary/20"
+        />
+      ) : p.image ? (
+        // Regular image for non-featured cards
+        <img
+          src={p.image}
+          alt={p.name}
+          className="h-16 w-16 rounded-xl object-cover"
+        />
+      ) : (
+        // Fallback to initials if no image
+        <div
+          className={`grid place-items-center rounded-xl bg-primary text-primary-foreground font-display font-semibold ${featured ? "h-20 w-20 text-2xl" : "h-16 w-16 text-xl"}`}
+        >
+          {p.initials}
+        </div>
+      )}
       <h3 className={`mt-5 font-display font-semibold text-primary ${featured ? "text-2xl" : "text-lg"}`}>
         {p.name}
       </h3>
@@ -94,7 +114,7 @@ function TeamPage() {
       />
 
       <section className="container-page py-16">
-        <SectionTitle eyebrow="Leadership" title="Founder & Director" />
+        <SectionTitle eyebrow="Leadership" title="" />
         <div className="mt-10 max-w-xl">
           <Card p={founder} featured />
         </div>

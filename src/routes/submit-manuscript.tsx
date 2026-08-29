@@ -550,15 +550,17 @@ const formData = parsed.data as any;
             <YesNoQuestion key={s.name} name={s.name} label={s.label} />
           ))}
           {acknowledgements.map((a) => (
-            <YesNoQuestion 
-              key={a.name} 
-              name={a.name} 
-              label={a.label} 
-              linkText={a.linkText}
-              popupContent={a.popupContent}
-              onOpenPopup={handleOpenStatementPopup}
-            />
-          ))}
+  <YesNoQuestion 
+    key={a.name} 
+    name={a.name} 
+    label={a.label} 
+    linkText={a.linkText}
+    popupContent={a.popupContent}
+    onOpenPopup={handleOpenStatementPopup}
+    yesLabel={a.name === "paymentAck" ? "I Agree" : "Yes"}
+    noLabel={a.name === "paymentAck" ? "Do Not Agree" : "No"}
+  />
+))}
         </div>
       </div>
 
@@ -706,12 +708,16 @@ function YesNoQuestion({
   linkText,
   popupContent,
   onOpenPopup,
+  yesLabel = "Yes",
+  noLabel = "No",
 }: {
   name: string;
   label: string;
   linkText?: string;
   popupContent?: any;
   onOpenPopup?: (content: any) => void;
+  yesLabel?: string;
+  noLabel?: string;
 }) {
   return (
     <fieldset className="flex flex-col gap-3 rounded-lg bg-secondary/30 p-4 transition-colors hover:bg-secondary/50 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
@@ -739,11 +745,11 @@ function YesNoQuestion({
       <div className="flex shrink-0 items-center gap-3">
         <label className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-primary/10 has-[:checked]:bg-primary/10">
           <input type="radio" name={name} value="yes" required className="h-4 w-4 accent-primary" />
-          Yes
+          {yesLabel}
         </label>
         <label className="flex cursor-pointer items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-primary/10 has-[:checked]:bg-primary/10">
           <input type="radio" name={name} value="no" className="h-4 w-4 accent-primary" />
-          No
+          {noLabel}
         </label>
       </div>
     </fieldset>
