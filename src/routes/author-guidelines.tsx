@@ -51,7 +51,7 @@ const formatRequirements = [
 
 function AuthorGuidelinesPage() {
   const [copied, setCopied] = useState(false);
-  const email = "admin@ramotitanico.com";
+  const email = "admin@ramotitanico.eu";
 
   const copyEmail = () => {
     navigator.clipboard.writeText(email);
