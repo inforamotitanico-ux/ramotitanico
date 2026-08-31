@@ -136,7 +136,7 @@ function SubmitManuscriptPage() {
   };
 
   const handleCopyEmail = () => {
-    const email = "admin@ramotitanico.com";
+    const email = "admin@ramotitanico.eu";
     navigator.clipboard.writeText(email).then(() => {
       setCopied(true);
       toast.success("📧 Email copied to clipboard!");
@@ -367,11 +367,11 @@ const formData = parsed.data as any;
         </p>
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <a
-            href="mailto:admin@ramotitanico.com?subject=Manuscript%20Submission"
+            href="mailto:admin@ramotitanico.eu?subject=Manuscript%20Submission"
             className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
           >
             <Mail className="h-4 w-4" />
-            admin@ramotitanico.com
+            admin@ramotitanico.eu
           </a>
           <button
             onClick={handleCopyEmail}
@@ -644,10 +644,10 @@ const formData = parsed.data as any;
               {/* Email with Copy Button */}
               <div className="mt-3 flex items-center justify-center gap-2">
                 <a
-                  href={`mailto:admin@ramotitanico.com?subject=Manuscript%20Submission%20-%20${submissionData?.name || 'Author'}`}
+                  href={`mailto:admin@ramotitanico.eu?subject=Manuscript%20Submission%20-%20${submissionData?.name || 'Author'}`}
                   className="text-lg font-semibold text-primary underline underline-offset-4 hover:text-primary/80"
                 >
-                  admin@ramotitanico.com
+                  admin@ramotitanico.eu
                 </a>
                 <button
                   onClick={handleCopyEmail}
