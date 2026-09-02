@@ -81,7 +81,7 @@ function AboutPage() {
               title="A Portugal-Based Multidisciplinary Organisation"
             />
             <p className="text-lg leading-relaxed text-justify">
-              Ramotitanico operates from Braga across four interconnected sectors: education,
+              It operates from Braga across four interconnected sectors: education,
               construction, transport, and agriculture. We advance research and learning through
               global academic partnerships, deliver quality construction projects, run a
               peer-to-peer car rental marketplace across Portugal, and support sustainable
