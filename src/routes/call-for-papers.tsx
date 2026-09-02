@@ -46,7 +46,7 @@ function CallForPapersPage() {
         backTo="/journal"
         backLabel="Journal Services"
         eyebrow="Call for Papers"
-        title="Submit Your Contribution ramo"
+        title="Submit Your Contribution"
         description="We welcome original research, case studies, policy analyses, and theoretical contributions across education, research methodology, innovation studies, and sustainable development."
       />
 
