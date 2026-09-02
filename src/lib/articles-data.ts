@@ -4,7 +4,7 @@ import comparativeStudyPdf from "@/assets/articles/COMPARATIVE STUDY OF HUMAN AN
 import hydrosocialCyclePdf from "@/assets/articles/The Hydrosocial Cycle Water as Culture.pdf?url";
 import mynameisjahan from "@/assets/articles/My Name Is Jahan” Queer Time, Anti-Futurity, and the Refusal of Reproductive Temporality in Saad T. Farooqi’s White World.pdf??url";
 import theidology from "@/assets/articles/The Ideology of Standard English and Cultural Alienation in Pakistan.pdf";
-import proposal from "@/assets/articles/Proposal-SEP-211233666"
+import proposal from "@/assets/articles/Proposal-SEP-211233666.pdf?url"
 // Article Interface
 export interface Article {
   title: string;
