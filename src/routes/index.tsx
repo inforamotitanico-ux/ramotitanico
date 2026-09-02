@@ -173,7 +173,7 @@ function HomePage() {
               Braga · Portugal · Worldwide
             </span>
             <h1 className="mt-6 font-display text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl lg:text-5xl">
-              Harnessing. Communities Through Education, Transport, Agriculture & Construction
+              Harnessing Communities Through Education, Transport, Agriculture & Construction
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-primary-foreground/85 sm:text-lg">
               Ramotitanico is a Portugal-based multidisciplinary organisation operating across four
