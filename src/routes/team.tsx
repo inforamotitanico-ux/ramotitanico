@@ -29,7 +29,7 @@ const founder: Person = {
   initials: "RM",
   name: "Dr. Rasib Mahmood",
   role: " Honorary CEO & Managing Director",
-  bio: "Leads the organization's strategic direction, international partnerships, and editorial programme. Two decades of experience across European and Asian higher education institutions. Committed to fostering interdisciplinary dialogue, advancing open-access scholarship, and creating meaningful opportunities for researchers to contribute to global knowledge production.",
+  bio: "Leads the organization's strategic direction, international partnerships, and editorial programme. Two decades of experience across European and Asian higher education institutions. Committed to fostering interdisciplinary dialogue, advancing open-access scholarship, and creating meaningful opportunities for researchers to contribute to global knowledge production. Uniquely multidisciplinary perspective to professional profile, bridging the distinct yet deeply interconnected worlds of primary resource management and physical infrastructure development. Extensive background in agriculture and land farming with a deep-rooted expertise in sustainable crop production, soil management, agronomic research, and modern land cultivation techniques. Complementing this agricultural mastery reflecting comprehensive proficiency in construction and architecture, with mastery in spatial planning, structural design, project management, and the oversight of complex civil and building developments.",
   image: founderImage // Use the imported image
 };
 
