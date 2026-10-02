@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dialog";
 import abstractBook from "@/assets/book/abstract-book.pdf";
 import { useState } from "react";
-import confschedule from "@/assets/schedule/Conference Schedule.pdf"
+import confschedule from "@/assets/schedule/conference-schedule.pdf"
 
 export const Route = createFileRoute("/events")({
   head: () => ({
