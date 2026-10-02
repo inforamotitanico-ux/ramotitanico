@@ -184,7 +184,7 @@ function EventsPage() {
           <div className="grid gap-0 lg:grid-cols-[1.3fr_1fr]">
             <div className="p-6 sm:p-10 lg:p-14">
               <span className="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-                Flagship · 26–27 September 2026 · Braga
+                Flagship · 03-04 October 2026 · Braga
               </span>
               <h2 className="mt-5 font-display text-2xl sm:text-3xl lg:text-4xl font-semibold leading-tight">
                 2nd International Conference on Crisis and Humanity: Paradigm Shift in Language and 
@@ -205,7 +205,7 @@ function EventsPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-md bg-accent px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-semibold text-accent-foreground hover:brightness-95"
                 >
-                  Schedule Day 1,2
+                  Conference Schedule
                 </a>
                 <a
                   href="#timeline"
