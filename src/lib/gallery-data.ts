@@ -63,13 +63,13 @@ const conference2Videos = Object.entries(conference2VideosGlob)
 // Define folder names
 export const FOLDERS = {
   ONLINE_CONFERENCE: "Online Conference — 26–27 June 2026",
-  CONFERENCE_2: "2nd Directioanl Conference 3-4 Oct 2026",
+  CONFERENCE_2: "2nd International Conference 3-4 Oct 2026",
 } as const;
 
 // ---------- Build gallery items ----------
 const onlineConferenceItems: GalleryItem[] = conferencePhotos.map((src, i) => ({
   category: FOLDERS.ONLINE_CONFERENCE,
-  caption: `Online Conference, 26–27 June 2026 — photo ${i + 1}`,
+  caption: `Online Conference, 26–27 June 2026`,
   src,
   type: "image",
 }));
@@ -77,7 +77,7 @@ const onlineConferenceItems: GalleryItem[] = conferencePhotos.map((src, i) => ({
 const conference2Items: GalleryItem[] = [
   ...conference2Images.map((src, i) => ({
     category: FOLDERS.CONFERENCE_2,
-    caption: `2nd Conference — photo ${i + 1}`,
+    caption: `2nd Conference`,
     src,
     type: "image" as const,
   })),
