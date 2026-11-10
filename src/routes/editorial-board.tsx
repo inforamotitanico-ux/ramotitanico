@@ -39,11 +39,7 @@ const chiefEditors: Editor[] = [
 ];
 
 const associateEditors: Editor[] = [
-  { 
-    name: "Dr. Inam Ullah", 
-    role: "Associate Editor",
-    description: "Handles submissions across humanities and interdisciplinary studies."
-  },
+  
 ];
 
 // Editorial Board Members (International Board)
@@ -150,19 +146,6 @@ function EditorialBoardPage() {
           ))}
         </div>
       </section>
-
-      {/* Associate Editor */}
-      <div className="bg-surface">
-        <section className="container-page py-16">
-          <SectionTitle eyebrow="Section Editors" title="Associate Editor" />
-          <div className="mt-10 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {associateEditors.map((e) => (
-              <EditorCard key={e.role} e={e} />
-            ))}
-          </div>
-        </section>
-      </div>
-
       {/* Editorial Board - International Board */}
       <section className="container-page py-16">
         <SectionTitle 
