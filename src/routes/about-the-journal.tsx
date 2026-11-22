@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BookOpen, Globe2, CalendarClock, ShieldCheck, Languages, Landmark, Users } from "lucide-react";
+import { BookOpen, Globe2, CalendarClock, ShieldCheck, Languages, Landmark, Users, Barcode } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionTitle } from "@/components/ui/section-title";
 
@@ -25,6 +25,7 @@ const facts = [
   { icon: Languages, label: "Language", value: "English" },
   { icon: Landmark, label: "Subject Area", value: "Humanities, Literature, Cultural Studies, Linguistics, Translation Studies, Education, Interdisciplinary Humanities" },
   { icon: Users, label: "Licence", value: "Creative Commons CC BY 4.0" },
+  { icon: Barcode, label: "ISSN", value: "ISSN 2839-1780" },
 ];
 
 function AboutJournalPage() {

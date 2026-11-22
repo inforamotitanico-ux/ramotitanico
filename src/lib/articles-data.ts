@@ -10,7 +10,7 @@ export interface Article {
   authors: string;
   pages: string;
   pdf: string;
-}
+} 
 
 // Issue Interface
 export interface Issue {
